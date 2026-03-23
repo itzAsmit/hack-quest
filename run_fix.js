@@ -18,16 +18,16 @@ tasks.forEach(({file, words}) => {
 
     words.forEach(word => {
       // Remove word with comma from list: Word, 
-      content = content.replace(new RegExp('\\\\b' + word + '\\\\s*,', 'g'), '');
+      content = content.replace(new RegExp('\\b' + word + '\\s*,', 'g'), '');
       
       // Remove word with prefixed comma from list: , Word
-      content = content.replace(new RegExp(',\\\\s*' + word + '\\\\b', 'g'), '');
+      content = content.replace(new RegExp(',\\s*' + word + '\\b', 'g'), '');
       
       // Remove standalone word in brackets (if it's the last word without a comma)
-      content = content.replace(new RegExp('\\\\{\\\\s*' + word + '\\\\s*\\\\}', 'g'), '{}');
+      content = content.replace(new RegExp('\\{\\s*' + word + '\\s*\\}', 'g'), '{}');
 
       // Specifically check for any single import line and wipe it
-      const singleImportRegex = new RegExp('import\\\\s*\\\\{\\\\s*' + word + '\\\\s*\\\\}\\\\s*from\\\\s*[\"\\'][^\"\\']+[\"\\']\\\\s*;?', 'g');
+      const singleImportRegex = new RegExp(`import\\s*\\{\\s*${word}\\s*\\}\\s*from\\s*["'][^"']+["']\\s*;?`, 'g');
       content = content.replace(singleImportRegex, '');
     });
 
