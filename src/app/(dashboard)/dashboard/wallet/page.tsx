@@ -6,7 +6,7 @@ import { createClient } from "@/lib/supabase/client";
 import { Wallet as WalletIcon, ArrowDownRight, ArrowUpRight, Plus, Minus, Loader2 } from "lucide-react";
 import { GlassPanel } from "@/components/shared/GlassPanel";
 import { AnimatedCounter } from "@/components/shared/AnimatedCounter";
-import { NeonBadge } from "@/components/shared/NeonBadge";
+
 import { formatNumber, getRelativeTime } from "@/lib/utils";
 
 interface Transaction {

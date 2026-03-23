@@ -119,7 +119,7 @@ export async function POST(request: NextRequest) {
         ? solanaService.getExplorerUrl(tx.txHash)
         : algorandService.getExplorerUrl(tx.txHash),
     });
-  } catch (_err) {
+  } catch {
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }

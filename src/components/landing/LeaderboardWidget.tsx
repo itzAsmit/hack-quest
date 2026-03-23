@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { createClient } from "@/lib/supabase/client";
-import { Trophy, Crown, Medal, ChevronUp, ChevronDown, Image as ImageIcon } from "lucide-react";
+import { Trophy, Crown, Medal, Image as ImageIcon } from "lucide-react";
 import { formatNumber } from "@/lib/utils";
 import { GlassPanel } from "@/components/shared/GlassPanel";
 

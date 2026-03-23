@@ -4,9 +4,9 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/client";
-import { Calendar, Users, Clock, Search, Zap } from "lucide-react";
+import { Calendar, Clock, Search, Zap } from "lucide-react";
 import { NeonBadge } from "@/components/shared/NeonBadge";
-import { GlassPanel } from "@/components/shared/GlassPanel";
+
 
 interface Event {
   id: string;

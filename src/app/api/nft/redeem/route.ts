@@ -120,7 +120,7 @@ export async function POST(request: NextRequest) {
     });
 
     return NextResponse.json({ success: true, ownership_id: ownership.id });
-  } catch (_err) {
+  } catch {
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }

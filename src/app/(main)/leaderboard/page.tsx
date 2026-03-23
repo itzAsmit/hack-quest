@@ -3,10 +3,10 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { createClient } from "@/lib/supabase/client";
-import { Trophy, Medal, Crown, Zap, Search, ChevronUp, ChevronDown } from "lucide-react";
+import { Trophy, Medal, Crown, Search } from "lucide-react";
 import { GlassPanel } from "@/components/shared/GlassPanel";
 import { NeonBadge } from "@/components/shared/NeonBadge";
-import { formatNumber, calculateLevel } from "@/lib/utils";
+import { formatNumber } from "@/lib/utils";
 import Link from "next/link";
 
 interface LeaderboardPlayer {

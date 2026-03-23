@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { createClient } from "@/lib/supabase/client";
-import { Settings, Loader2, Save, Trash2, Wallet } from "lucide-react";
+import { Loader2, Save, Wallet } from "lucide-react";
 import { GlassPanel } from "@/components/shared/GlassPanel";
 import { WalletConnect } from "@/components/shared/WalletConnect";
 import { useToast } from "@/components/shared/Toast";

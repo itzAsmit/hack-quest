@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { createClient } from "@/lib/supabase/client";
-import { Gavel, Clock, Timer, Loader2, AlertCircle } from "lucide-react";
+import { Gavel, Timer, AlertCircle } from "lucide-react";
 import { GlassPanel } from "@/components/shared/GlassPanel";
 import { NeonBadge } from "@/components/shared/NeonBadge";
 import { formatNumber } from "@/lib/utils";

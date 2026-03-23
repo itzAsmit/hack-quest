@@ -5,7 +5,7 @@ import { useParams } from "next/navigation";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { createClient } from "@/lib/supabase/client";
-import { Gavel, ArrowLeft, Timer, Loader2, Users, TrendingUp } from "lucide-react";
+import { Gavel, ArrowLeft, Timer, Loader2, TrendingUp } from "lucide-react";
 import { GlassPanel } from "@/components/shared/GlassPanel";
 import { NeonBadge } from "@/components/shared/NeonBadge";
 import { formatNumber, getRelativeTime } from "@/lib/utils";

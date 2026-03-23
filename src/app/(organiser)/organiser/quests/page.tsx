@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { createClient } from "@/lib/supabase/client";
 import {
-  Target, Plus, Trash2, Edit, Loader2, Save, X, Trophy, Zap
+  Target, Plus, Trash2, Loader2, Save, X, Zap
 } from "lucide-react";
 import { GlassPanel } from "@/components/shared/GlassPanel";
 import { NeonBadge } from "@/components/shared/NeonBadge";
