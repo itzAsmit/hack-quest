@@ -67,7 +67,7 @@ export default function EventDetailPage() {
       if (partData) {
         setParticipants(partData as unknown as Participant[]);
         if (user) {
-          setJoined(partData.some((p: unknown) => p.user_id === user.id));
+          setJoined(partData.some((p: { user_id: string }) => p.user_id === user.id));
         }
       }
       setLoading(false);
