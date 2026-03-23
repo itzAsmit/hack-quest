@@ -54,7 +54,7 @@ export async function POST(request: NextRequest) {
     });
 
     return NextResponse.json({ success: true, new_balance: newBalance });
-  } catch (err) {
+  } catch (_err) {
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }

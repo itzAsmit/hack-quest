@@ -60,7 +60,7 @@ export function WalletConnect() {
         });
         toast("Algorand wallet connected (testnet simulation)", "info");
       }
-    } catch (err) {
+    } catch (_err) {
       toast("Failed to connect wallet", "error");
     }
 

@@ -123,7 +123,7 @@ export async function POST(request: NextRequest) {
     ]);
 
     return NextResponse.json({ success: true, winner: auction.highest_bidder, amount: auction.current_bid });
-  } catch (err) {
+  } catch (_err) {
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }

@@ -28,7 +28,7 @@ export async function GET(request: NextRequest) {
     }));
 
     return NextResponse.json({ players: ranked });
-  } catch (err) {
+  } catch (_err) {
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }
