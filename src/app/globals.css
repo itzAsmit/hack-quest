@@ -2,29 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@300;400;500;600;700&display=swap');
 
 :root {
-  --bg-primary: #0A0A0F;
-  --bg-secondary: #0E0E13;
-  --bg-tertiary: #131319;
-  --accent-purple: #7C3AED;
-  --accent-violet: #A855F7;
-  --accent-glow: #C084FC;
-  --gold: #F59E0B;
-  --gold-light: #FBBF24;
-  --text-primary: #F8FAFC;
-  --text-secondary: #94A3B8;
-  --text-muted: #64748B;
-}
-
-/* Custom cursor */
-* {
-  cursor: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='10' cy='10' r='3' stroke='%237C3AED' stroke-width='1.5'/%3E%3Cline x1='10' y1='0' x2='10' y2='6' stroke='%237C3AED' stroke-width='1'/%3E%3Cline x1='10' y1='14' x2='10' y2='20' stroke='%237C3AED' stroke-width='1'/%3E%3Cline x1='0' y1='10' x2='6' y2='10' stroke='%237C3AED' stroke-width='1'/%3E%3Cline x1='14' y1='10' x2='20' y2='10' stroke='%237C3AED' stroke-width='1'/%3E%3C/svg%3E") 10 10, crosshair;
-}
-
-a, button, [role="button"], input[type="submit"] {
-  cursor: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='12' cy='12' r='4' stroke='%23A855F7' stroke-width='2'/%3E%3Ccircle cx='12' cy='12' r='1.5' fill='%23A855F7'/%3E%3Cline x1='12' y1='1' x2='12' y2='7' stroke='%23A855F7' stroke-width='1.5'/%3E%3Cline x1='12' y1='17' x2='12' y2='23' stroke='%23A855F7' stroke-width='1.5'/%3E%3Cline x1='1' y1='12' x2='7' y2='12' stroke='%23A855F7' stroke-width='1.5'/%3E%3Cline x1='17' y1='12' x2='23' y2='12' stroke='%23A855F7' stroke-width='1.5'/%3E%3C/svg%3E") 12 12, pointer;
+  --bg-primary: #040814;
+  --bg-secondary: #070d1f;
+  --bg-tertiary: #0b1426;
+  --accent-purple: #6d28d9;
+  --accent-violet: #d946ef;
+  --accent-glow: #22d3ee;
+  --gold: #f59e0b;
+  --gold-light: #fbbf24;
+  --text-primary: #f8fafc;
+  --text-secondary: #b3c1d8;
+  --text-muted: #7f8ba3;
 }
 
 html {
@@ -34,7 +25,7 @@ html {
 body {
   background: var(--bg-primary);
   color: var(--text-primary);
-  font-family: 'Inter', sans-serif;
+  font-family: 'Sora', sans-serif;
   overflow-x: hidden;
 }
 
@@ -55,7 +46,7 @@ body {
 
 /* Selection */
 ::selection {
-  background: rgba(124, 58, 237, 0.4);
+  background: rgba(217, 70, 239, 0.35);
   color: #F8FAFC;
 }
 
@@ -79,9 +70,9 @@ body {
   }
 
   .neon-text {
-    text-shadow: 0 0 10px rgba(124, 58, 237, 0.5),
-                 0 0 30px rgba(124, 58, 237, 0.3),
-                 0 0 60px rgba(124, 58, 237, 0.15);
+    text-shadow: 0 0 12px rgba(34, 211, 238, 0.45),
+                 0 0 32px rgba(34, 211, 238, 0.25),
+                 0 0 68px rgba(109, 40, 217, 0.16);
   }
 
   .neon-text-gold {
@@ -90,7 +81,7 @@ body {
   }
 
   .gradient-text {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-hq-accent-purple via-hq-accent-violet to-hq-accent-glow;
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-cyan-200 via-violet-200 to-fuchsia-200;
   }
 
   .gradient-text-gold {
@@ -99,10 +90,10 @@ body {
 
   .btn-primary {
     @apply relative px-6 py-3 rounded-lg font-semibold text-sm text-white transition-all duration-300;
-    background: linear-gradient(135deg, #7C3AED 0%, #A855F7 100%);
+    background: linear-gradient(135deg, #0ea5e9 0%, #6366f1 50%, #d946ef 100%);
   }
   .btn-primary:hover {
-    box-shadow: 0 0 20px rgba(124, 58, 237, 0.5), 0 0 60px rgba(168, 85, 247, 0.2);
+    box-shadow: 0 0 26px rgba(14, 165, 233, 0.4), 0 0 60px rgba(217, 70, 239, 0.2);
     transform: translateY(-1px);
   }
   .btn-primary:active {
@@ -112,13 +103,13 @@ body {
   .btn-outline {
     @apply relative px-6 py-3 rounded-lg font-semibold text-sm transition-all duration-300;
     background: transparent;
-    border: 1px solid rgba(124, 58, 237, 0.5);
-    color: #A855F7;
+    border: 1px solid rgba(34, 211, 238, 0.5);
+    color: #67e8f9;
   }
   .btn-outline:hover {
-    border-color: #A855F7;
-    box-shadow: 0 0 15px rgba(124, 58, 237, 0.3), inset 0 0 15px rgba(124, 58, 237, 0.05);
-    color: #C084FC;
+    border-color: #a5f3fc;
+    box-shadow: 0 0 15px rgba(34, 211, 238, 0.3), inset 0 0 15px rgba(34, 211, 238, 0.05);
+    color: #cffafe;
     transform: translateY(-1px);
   }
 

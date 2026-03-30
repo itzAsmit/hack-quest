@@ -4,6 +4,8 @@ import { HeroSection } from "@/components/landing/HeroSection";
 import { LeaderboardWidget } from "@/components/landing/LeaderboardWidget";
 import { EventsTeaser } from "@/components/landing/EventsTeaser";
 import { ActivityTicker } from "@/components/landing/ActivityTicker";
+import { LandingFeatureGrid } from "@/components/landing/LandingFeatureGrid";
+import { LandingShowcase } from "@/components/landing/LandingShowcase";
 
 export default function HomePage() {
   return (
@@ -12,6 +14,8 @@ export default function HomePage() {
       <main>
         <HeroSection />
         <ActivityTicker />
+        <LandingFeatureGrid />
+        <LandingShowcase />
         <EventsTeaser />
         <LeaderboardWidget />
       </main>

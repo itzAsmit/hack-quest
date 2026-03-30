@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
-import { solanaService } from "@/lib/blockchain/solana";
 import { algorandService } from "@/lib/blockchain/algorand";
 import { uploadMetadataToIPFS } from "@/lib/ipfs";
 
@@ -13,7 +12,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const { nft_ownership_id, chain = "solana", wallet_address } = await request.json();
+    const { nft_ownership_id, wallet_address } = await request.json();
 
     if (!nft_ownership_id || !wallet_address) {
       return NextResponse.json({ error: "nft_ownership_id and wallet_address required" }, { status: 400 });
@@ -38,19 +37,11 @@ export async function POST(request: NextRequest) {
     const nftDef = ownership.nft_definitions;
 
     // Upload metadata to IPFS
-    const metadata = chain === "solana"
-      ? solanaService.buildMetadata({
-          name: nftDef.name,
-          description: nftDef.description || `HackQuest NFT: ${nftDef.name}`,
-          imageUrl: nftDef.image_url,
-          rarity: nftDef.rarity_color,
-          creatorAddress: wallet_address,
-        })
-      : algorandService.buildMetadata({
-          description: nftDef.description || `HackQuest NFT: ${nftDef.name}`,
-          imageUrl: nftDef.image_url,
-          rarity: nftDef.rarity_color,
-        });
+    const metadata = algorandService.buildMetadata({
+      description: nftDef.description || `HackQuest NFT: ${nftDef.name}`,
+      imageUrl: nftDef.image_url,
+      rarity: nftDef.rarity_color,
+    });
 
     const ipfsResult = await uploadMetadataToIPFS(metadata as unknown as Record<string, unknown>, `hqnft-${nftDef.name}`);
 
@@ -58,31 +49,35 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Failed to upload metadata to IPFS" }, { status: 500 });
     }
 
-    // Mint on-chain
-    let tx;
-    if (chain === "solana") {
-      tx = await solanaService.mintNFT({
-        metadata: metadata as any,
-        recipientAddress: wallet_address,
-        ipfsUri: ipfsResult.url,
-      });
-    } else {
-      tx = await algorandService.createASA({
-        metadata: metadata as any,
-        creatorAddress: wallet_address,
-        totalSupply: 1,
-      });
-    }
+    // Mint on Algorand
+    const tx = await algorandService.createASA({
+      metadata,
+      creatorAddress: wallet_address,
+      totalSupply: 1,
+    });
 
     // Store tx hash on ownership record
-    await supabase
+    const { error: updateError } = await supabase
       .from("nft_ownership")
       .update({
         on_chain_tx: tx.txHash,
-        on_chain_network: chain,
+        on_chain_network: "algorand",
         ipfs_metadata_url: ipfsResult.url,
       })
       .eq("id", nft_ownership_id);
+
+    if (updateError) {
+      console.error("Failed to update ownership record after mint:", updateError);
+      // NFT is minted but DB update failed - return partial success with warning
+      return NextResponse.json({
+        success: true,
+        warning: "NFT minted but database update failed. Please contact support.",
+        txHash: tx.txHash,
+        chain: "algorand",
+        ipfsUrl: ipfsResult.url,
+        explorerUrl: algorandService.getExplorerUrl(tx.txHash),
+      }, { status: 207 }); // Multi-Status
+    }
 
     // Write audit record on Algorand
     await algorandService.writeAudit({
@@ -90,7 +85,7 @@ export async function POST(request: NextRequest) {
       userId: user.id,
       data: {
         nft_name: nftDef.name,
-        chain,
+        chain: "algorand",
         txHash: tx.txHash,
         ipfs_cid: ipfsResult.cid,
       },
@@ -100,10 +95,10 @@ export async function POST(request: NextRequest) {
     await supabase.from("activity_feed").insert({
       user_id: user.id,
       activity_type: "nft_mint",
-      message: `Minted "${nftDef.name}" on ${chain === "solana" ? "Solana" : "Algorand"} blockchain`,
+      message: `Minted "${nftDef.name}" on Algorand blockchain`,
       metadata: {
         nft_ownership_id,
-        chain,
+        chain: "algorand",
         txHash: tx.txHash,
         ipfsUrl: ipfsResult.url,
       },
@@ -113,11 +108,9 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({
       success: true,
       txHash: tx.txHash,
-      chain,
+      chain: "algorand",
       ipfsUrl: ipfsResult.url,
-      explorerUrl: chain === "solana"
-        ? solanaService.getExplorerUrl(tx.txHash)
-        : algorandService.getExplorerUrl(tx.txHash),
+      explorerUrl: algorandService.getExplorerUrl(tx.txHash),
     });
   } catch {
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });

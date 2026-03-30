@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   title: "HackQuest — Gamified Hackathon Platform",
   description:
     "The ultimate gamified hackathon platform. Earn XP, collect NFTs, compete on the global leaderboard, and trade in the auction house.",
-  keywords: ["hackathon", "gamification", "NFT", "XP", "leaderboard", "blockchain", "solana", "algorand"],
+  keywords: ["hackathon", "gamification", "NFT", "XP", "leaderboard", "blockchain", "algorand"],
   openGraph: {
     title: "HackQuest — Gamified Hackathon Platform",
     description:

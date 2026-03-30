@@ -1,15 +1,9 @@
-// Blockchain configuration and types for HackQuest
+// Blockchain configuration and types for HackQuest (Algorand only)
 
-export const SUPPORTED_CHAINS = ["solana", "algorand"] as const;
+export const SUPPORTED_CHAINS = ["algorand"] as const;
 export type SupportedChain = (typeof SUPPORTED_CHAINS)[number];
 
 export interface BlockchainConfig {
-  solana: {
-    rpcUrl: string;
-    network: "mainnet-beta" | "devnet" | "testnet";
-    explorerUrl: string;
-    programId: string | null;
-  };
   algorand: {
     algodUrl: string;
     algodToken: string;
@@ -20,12 +14,6 @@ export interface BlockchainConfig {
 }
 
 export const blockchainConfig: BlockchainConfig = {
-  solana: {
-    rpcUrl: process.env.NEXT_PUBLIC_SOLANA_RPC_URL || "https://api.devnet.solana.com",
-    network: (process.env.NEXT_PUBLIC_SOLANA_NETWORK as BlockchainConfig["solana"]["network"]) || "devnet",
-    explorerUrl: "https://explorer.solana.com",
-    programId: process.env.NEXT_PUBLIC_SOLANA_PROGRAM_ID || null,
-  },
   algorand: {
     algodUrl: process.env.NEXT_PUBLIC_ALGORAND_ALGOD_URL || "https://testnet-api.algonode.cloud",
     algodToken: process.env.NEXT_PUBLIC_ALGORAND_ALGOD_TOKEN || "",
@@ -36,23 +24,6 @@ export const blockchainConfig: BlockchainConfig = {
 };
 
 // NFT metadata standard interfaces
-export interface SolanaNFTMetadata {
-  name: string;
-  symbol: string;
-  description: string;
-  image: string;
-  external_url?: string;
-  attributes: Array<{
-    trait_type: string;
-    value: string | number;
-  }>;
-  properties: {
-    category: "image";
-    files: Array<{ uri: string; type: string }>;
-    creators: Array<{ address: string; share: number }>;
-  };
-}
-
 export interface AlgorandNFTMetadata {
   standard: "arc69";
   description: string;
@@ -78,12 +49,6 @@ export interface WalletState {
   chain: SupportedChain | null;
   address: string | null;
   balance: number;
-}
-
-export function getSolanaExplorerUrl(txHash: string): string {
-  const network = blockchainConfig.solana.network;
-  const cluster = network === "mainnet-beta" ? "" : `?cluster=${network}`;
-  return `${blockchainConfig.solana.explorerUrl}/tx/${txHash}${cluster}`;
 }
 
 export function getAlgorandExplorerUrl(txHash: string): string {

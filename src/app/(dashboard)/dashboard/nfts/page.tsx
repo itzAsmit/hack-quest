@@ -11,7 +11,7 @@ interface OwnedNFT {
   id: string;
   acquired_via: string;
   acquired_at: string;
-  solana_mint_addr: string | null;
+  on_chain_tx: string | null;
   is_listed: boolean;
   nft_definitions: {
     name: string;
@@ -35,6 +35,9 @@ export default function NFTsPage() {
   const [loading, setLoading] = useState(true);
   const [selected, setSelected] = useState<OwnedNFT | null>(null);
   const supabase = createClient();
+  const peraExplorerBase = (process.env.NEXT_PUBLIC_PERA_EXPLORER_BASE || "https://testnet.explorer.perawallet.app")
+    .trim()
+    .replace(/\/+$/, "");
 
   useEffect(() => {
     const fetchNFTs = async () => {
@@ -43,7 +46,7 @@ export default function NFTsPage() {
 
       const { data } = await supabase
         .from("nft_ownership")
-        .select("id, acquired_via, acquired_at, solana_mint_addr, is_listed, nft_definitions(name, image_url, nft_type, rarity_color, description)")
+        .select("id, acquired_via, acquired_at, on_chain_tx, is_listed, nft_definitions(name, image_url, nft_type, rarity_color, description)")
         .eq("owner_id", user.id)
         .order("acquired_at", { ascending: false });
 
@@ -169,14 +172,14 @@ export default function NFTsPage() {
                 <button className="btn-outline w-full text-xs py-2 flex items-center justify-center gap-1.5">
                   <Gavel className="w-3.5 h-3.5" /> List on Auction
                 </button>
-                {selected.solana_mint_addr && (
+                {selected.on_chain_tx && (
                   <a
-                    href={`https://explorer.solana.com/address/${selected.solana_mint_addr}?cluster=devnet`}
+                    href={`${peraExplorerBase}/tx/${encodeURIComponent(selected.on_chain_tx.trim())}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="btn-outline w-full text-xs py-2 flex items-center justify-center gap-1.5"
                   >
-                    <ExternalLink className="w-3.5 h-3.5" /> View on Solana
+                    <ExternalLink className="w-3.5 h-3.5" /> View on Algorand
                   </a>
                 )}
               </div>

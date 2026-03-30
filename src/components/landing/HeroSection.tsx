@@ -1,212 +1,132 @@
 "use client";
 
-import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { Zap, ChevronRight, Sparkles } from "lucide-react";
+import { ArrowRight, ShieldCheck, Sparkles, Target, Trophy } from "lucide-react";
+import LaserFlow from "@/components/landing/LaserFlow";
 
 export function HeroSection() {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-
-  // Particle animation
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-
-    let animationId: number;
-    const particles: Array<{
-      x: number;
-      y: number;
-      vx: number;
-      vy: number;
-      size: number;
-      opacity: number;
-      color: string;
-    }> = [];
-
-    const colors = [
-      "124, 58, 237",  // purple
-      "168, 85, 247",  // violet
-      "192, 132, 252", // glow
-      "245, 158, 11",  // gold
-    ];
-
-    const resize = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    };
-    resize();
-    window.addEventListener("resize", resize);
-
-    // Create particles
-    for (let i = 0; i < 80; i++) {
-      particles.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        vx: (Math.random() - 0.5) * 0.3,
-        vy: (Math.random() - 0.5) * 0.3,
-        size: Math.random() * 2 + 0.5,
-        opacity: Math.random() * 0.5 + 0.1,
-        color: colors[Math.floor(Math.random() * colors.length)],
-      });
-    }
-
-    const animate = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      particles.forEach((p) => {
-        p.x += p.vx;
-        p.y += p.vy;
-
-        if (p.x < 0) p.x = canvas.width;
-        if (p.x > canvas.width) p.x = 0;
-        if (p.y < 0) p.y = canvas.height;
-        if (p.y > canvas.height) p.y = 0;
-
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(${p.color}, ${p.opacity})`;
-        ctx.fill();
-      });
-
-      // Draw connections
-      particles.forEach((a, i) => {
-        particles.slice(i + 1).forEach((b) => {
-          const dx = a.x - b.x;
-          const dy = a.y - b.y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < 150) {
-            ctx.beginPath();
-            ctx.moveTo(a.x, a.y);
-            ctx.lineTo(b.x, b.y);
-            ctx.strokeStyle = `rgba(124, 58, 237, ${0.06 * (1 - dist / 150)})`;
-            ctx.lineWidth = 0.5;
-            ctx.stroke();
-          }
-        });
-      });
-
-      animationId = requestAnimationFrame(animate);
-    };
-    animate();
-
-    return () => {
-      cancelAnimationFrame(animationId);
-      window.removeEventListener("resize", resize);
-    };
-  }, []);
-
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Particle canvas */}
-      <canvas ref={canvasRef} className="absolute inset-0 z-0" />
-
-      {/* Radial gradient overlays */}
-      <div className="absolute inset-0 z-[1]">
-        <div className="absolute top-1/4 left-1/4 w-[600px] h-[600px] bg-hq-accent-purple/8 rounded-full blur-[120px]" />
-        <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-hq-accent-violet/6 rounded-full blur-[100px]" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-hq-gold/4 rounded-full blur-[80px]" />
+    <section className="relative flex min-h-screen items-center overflow-hidden px-4 pb-20 pt-28 sm:px-6">
+      <div className="absolute inset-0 z-0">
+        <LaserFlow
+          horizontalBeamOffset={0.08}
+          verticalBeamOffset={0}
+          horizontalSizing={0.52}
+          verticalSizing={2}
+          wispDensity={1}
+          wispSpeed={14}
+          wispIntensity={4}
+          flowSpeed={0.3}
+          flowStrength={0.22}
+          fogIntensity={0.48}
+          fogScale={0.28}
+          fogFallSpeed={0.62}
+          decay={1.1}
+          falloffStart={1.15}
+          color="#CDB4FF"
+        />
       </div>
 
-      {/* Floating geometric shapes */}
-      <div className="absolute inset-0 z-[1] overflow-hidden pointer-events-none">
-        <div className="absolute top-[15%] left-[10%] w-20 h-20 border border-hq-accent-purple/20 rounded-xl rotate-45 animate-float" />
-        <div className="absolute top-[70%] right-[15%] w-14 h-14 border border-hq-accent-violet/15 rounded-full animate-float-delayed" />
-        <div className="absolute top-[30%] right-[20%] w-16 h-16 border border-hq-gold/10 rotate-12 animate-float" />
-        <div className="absolute bottom-[20%] left-[25%] w-10 h-10 border border-hq-accent-glow/15 rounded-lg rotate-[30deg] animate-float-delayed" />
+      <div className="absolute inset-0 z-[1] bg-[radial-gradient(900px_circle_at_10%_10%,rgba(14,165,233,0.22),transparent_42%),radial-gradient(860px_circle_at_82%_14%,rgba(217,70,239,0.20),transparent_45%),linear-gradient(180deg,rgba(2,6,23,0.60)_0%,rgba(2,6,23,0.9)_78%)]" />
+
+      <div className="absolute inset-0 z-[2] pointer-events-none">
+        <div className="absolute left-[10%] top-[23%] h-20 w-20 rounded-2xl border border-cyan-200/20 bg-cyan-200/5 blur-[0.3px]" />
+        <div className="absolute right-[12%] top-[18%] h-28 w-28 rounded-full border border-fuchsia-300/20" />
+        <div className="absolute bottom-[14%] left-[14%] h-40 w-40 rounded-full bg-fuchsia-300/10 blur-3xl" />
       </div>
 
-      {/* Content */}
-      <div className="relative z-10 text-center px-4 sm:px-6 max-w-5xl mx-auto">
-        {/* Badge */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.1 }}
-          className="inline-flex items-center gap-2 bg-hq-accent-purple/10 border border-hq-accent-purple/30 rounded-full px-4 py-1.5 mb-8"
-        >
-          <Sparkles className="w-3.5 h-3.5 text-hq-accent-glow" />
-          <span className="text-xs font-medium text-hq-accent-glow uppercase tracking-wider">
-            Gamified Hackathon Platform
-          </span>
-        </motion.div>
+      <div className="relative z-10 mx-auto grid w-full max-w-6xl items-center gap-10 lg:grid-cols-[1.05fr_0.95fr]">
+        <div>
+          <motion.span
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="inline-flex items-center gap-2 rounded-full border border-cyan-200/30 bg-cyan-300/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-cyan-100"
+          >
+            <Sparkles className="h-3.5 w-3.5" />
+            HackQuest Platform
+          </motion.span>
 
-        {/* Main Title */}
-        <motion.h1
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.2 }}
-          className="font-heading font-bold text-5xl sm:text-6xl md:text-7xl lg:text-8xl leading-[0.95] mb-6"
-        >
-          <span className="block text-hq-text-primary">EARN XP.</span>
-          <span className="block gradient-text">COLLECT NFTS.</span>
-          <span className="block text-hq-text-primary">
-            COMPETE{" "}
-            <span className="relative inline-block">
-              GLOBALLY
-              <span className="absolute -bottom-1 left-0 w-full h-1 bg-gradient-to-r from-hq-accent-purple to-hq-gold rounded-full" />
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.55, delay: 0.08 }}
+            className="mt-6 font-heading text-4xl font-bold leading-tight text-white sm:text-5xl lg:text-7xl"
+          >
+            Serious hackathons.
+            <span className="block bg-gradient-to-r from-cyan-100 via-violet-200 to-fuchsia-200 bg-clip-text text-transparent">
+              Modern reward mechanics.
             </span>
-            .
-          </span>
-        </motion.h1>
+          </motion.h1>
 
-        {/* Subtitle */}
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          className="max-w-2xl mx-auto text-lg sm:text-xl text-hq-text-secondary mb-10 leading-relaxed"
-        >
-          Join hackathons, earn experience points, collect blockchain-backed NFTs,
-          and climb the global leaderboard. Your coding journey, gamified.
-        </motion.p>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.55, delay: 0.2 }}
+            className="mt-5 max-w-xl text-base leading-relaxed text-slate-300 sm:text-lg"
+          >
+            HackQuest unifies event operations, quest progress, NFT rewards, and leaderboard movement in one focused interface for players and organisers.
+          </motion.p>
 
-        {/* CTAs */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.55, delay: 0.3 }}
+            className="mt-8 flex flex-wrap items-center gap-3"
+          >
+            <Link
+              href="/events"
+              className="inline-flex items-center gap-2 rounded-xl border border-cyan-200/40 bg-cyan-300/20 px-6 py-3 text-sm font-semibold uppercase tracking-[0.13em] text-cyan-50 transition hover:border-cyan-200/70 hover:bg-cyan-300/30"
+            >
+              Explore Events
+              <ArrowRight className="h-4 w-4" />
+            </Link>
+            <Link
+              href="/register"
+              className="inline-flex items-center gap-2 rounded-xl border border-white/20 bg-white/[0.03] px-6 py-3 text-sm font-semibold uppercase tracking-[0.13em] text-white/90 transition hover:border-white/40 hover:bg-white/[0.07]"
+            >
+              Create Profile
+            </Link>
+          </motion.div>
+        </div>
+
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.6 }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-4"
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="grid gap-3"
         >
-          <Link href="/events" className="btn-primary text-base px-8 py-4 flex items-center gap-2 group">
-            <Zap className="w-4 h-4" />
-            Explore Events
-            <ChevronRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
-          </Link>
-          <Link href="/register" className="btn-outline text-base px-8 py-4">
-            Join Now — It&apos;s Free
-          </Link>
-        </motion.div>
-
-        {/* Stats */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 1 }}
-          className="mt-16 flex items-center justify-center gap-8 sm:gap-16"
-        >
-          {[
-            { value: "10K+", label: "Players" },
-            { value: "500+", label: "NFTs Minted" },
-            { value: "50+", label: "Events" },
-          ].map(({ value, label }) => (
-            <div key={label} className="text-center">
-              <p className="font-heading font-bold text-2xl sm:text-3xl gradient-text-gold">
-                {value}
-              </p>
-              <p className="text-xs sm:text-sm text-hq-text-muted uppercase tracking-wider mt-1">
-                {label}
-              </p>
+          <div className="rounded-2xl border border-white/15 bg-slate-900/55 p-5 backdrop-blur-xl">
+            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-slate-300">Operator Snapshot</p>
+            <div className="mt-4 grid grid-cols-3 gap-2">
+              {[
+                { icon: Target, value: "42", label: "Live Quests" },
+                { icon: Trophy, value: "18.7K", label: "XP Today" },
+                { icon: ShieldCheck, value: "97%", label: "Event Uptime" },
+              ].map((item) => {
+                const Icon = item.icon;
+                return (
+                  <div key={item.label} className="rounded-xl border border-white/10 bg-white/[0.03] p-3">
+                    <Icon className="h-4 w-4 text-cyan-100" />
+                    <p className="mt-2 text-base font-semibold text-slate-100 sm:text-lg">{item.value}</p>
+                    <p className="text-[10px] uppercase tracking-[0.13em] text-slate-400">{item.label}</p>
+                  </div>
+                );
+              })}
             </div>
-          ))}
+          </div>
+
+          <div className="rounded-2xl border border-fuchsia-200/20 bg-fuchsia-300/10 p-4 backdrop-blur-xl">
+            <p className="text-xs uppercase tracking-[0.15em] text-fuchsia-100/80">Multi-role Surface</p>
+            <p className="mt-2 text-sm leading-relaxed text-fuchsia-50/95">
+              Players track progression and rewards while organisers run events and quest streams from dedicated dashboards.
+            </p>
+          </div>
         </motion.div>
       </div>
 
-      {/* Bottom fade gradient */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-hq-bg-primary to-transparent z-[2]" />
+      <div className="absolute bottom-0 left-0 right-0 z-[2] h-36 bg-gradient-to-t from-hq-bg-primary to-transparent" />
     </section>
   );
 }

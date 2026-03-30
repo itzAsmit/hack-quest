@@ -11,19 +11,19 @@ const config: Config = {
       colors: {
         hq: {
           bg: {
-            primary: "#0A0A0F",
-            secondary: "#0E0E13",
-            tertiary: "#131319",
-            card: "#19191F",
-            elevated: "#1F1F26",
-            bright: "#25252D",
+            primary: "#040814",
+            secondary: "#070D1F",
+            tertiary: "#0B1426",
+            card: "#111A2E",
+            elevated: "#1A2540",
+            bright: "#233458",
           },
           accent: {
-            purple: "#7C3AED",
-            violet: "#A855F7",
-            glow: "#C084FC",
-            lavender: "#CC97FF",
-            dim: "#9C48EA",
+            purple: "#6D28D9",
+            violet: "#D946EF",
+            glow: "#22D3EE",
+            lavender: "#A5F3FC",
+            dim: "#4F46E5",
           },
           gold: {
             DEFAULT: "#F59E0B",
@@ -35,8 +35,8 @@ const config: Config = {
           warning: "#F59E0B",
           text: {
             primary: "#F8FAFC",
-            secondary: "#94A3B8",
-            muted: "#64748B",
+            secondary: "#B3C1D8",
+            muted: "#7F8BA3",
           },
           glass: {
             bg: "rgba(255, 255, 255, 0.05)",
@@ -53,7 +53,7 @@ const config: Config = {
       },
       fontFamily: {
         heading: ['"Space Grotesk"', "sans-serif"],
-        body: ['"Inter"', "sans-serif"],
+        body: ['"Sora"', "sans-serif"],
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
