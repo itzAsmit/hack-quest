@@ -87,7 +87,7 @@ export function LandingFeatureGrid() {
           transition={{ duration: 0.55 }}
           className="mb-10 text-center"
         >
-          <span className="inline-flex items-center gap-2 rounded-full border border-cyan-300/30 bg-cyan-300/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-cyan-100/90">
+          <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-slate-200">
             <Sparkles className="h-3.5 w-3.5" />
             Platform Capability
           </span>
@@ -117,12 +117,12 @@ export function LandingFeatureGrid() {
                       href={feature.href}
                       className="relative block h-full overflow-hidden rounded-xl p-4"
                     >
-                      <div className="mb-3 inline-flex rounded-lg border border-cyan-100/20 bg-slate-900/80 p-2 text-cyan-100">
+                      <div className="mb-3 inline-flex rounded-lg border border-white/15 bg-slate-900/80 p-2 text-slate-200">
                         <Icon className="h-4 w-4" />
                       </div>
                       <h3 className="text-lg font-semibold text-slate-100">{feature.title}</h3>
                       <p className="mt-2 text-sm leading-relaxed text-slate-300">{feature.description}</p>
-                      <span className="mt-4 inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-[0.14em] text-cyan-100/80">
+                      <span className="mt-4 inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-[0.14em] text-slate-300">
                         Explore
                         <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5" />
                       </span>
@@ -145,7 +145,7 @@ export function LandingFeatureGrid() {
             >
               <CardCanvas>
                 <Card className="p-3.5">
-                  <span className="text-xs font-semibold tracking-[0.15em] text-cyan-200/80">{step.id}</span>
+                  <span className="text-xs font-semibold tracking-[0.15em] text-slate-300">{step.id}</span>
                   <h3 className="mt-2 text-sm font-semibold text-white sm:text-base">{step.title}</h3>
                   <p className="mt-1.5 text-xs leading-relaxed text-slate-300 sm:text-sm">{step.text}</p>
                 </Card>
