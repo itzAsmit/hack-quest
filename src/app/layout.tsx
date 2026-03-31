@@ -30,6 +30,8 @@ export const metadata: Metadata = {
   },
 };
 
+import { AppNavbar } from "@/components/layout/AppNavbar";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -41,6 +43,7 @@ export default function RootLayout({
         className={`${spaceGrotesk.variable} ${inter.variable} font-body antialiased bg-hq-bg-primary text-hq-text-primary`}
       >
         <ToastProvider>
+          <AppNavbar />
           {children}
         </ToastProvider>
       </body>

@@ -17,7 +17,7 @@ export function LandingNavbar() {
 
   return (
     <div 
-      className={`fixed left-1/2 -translate-x-1/2 z-50 w-[calc(100%-3rem)] max-w-[960px] transition-all duration-500 ease-in-out ${
+      className={`fixed left-1/2 -translate-x-1/2 z-50 w-[calc(100%-3rem)] max-w-[1240px] transition-all duration-500 ease-in-out ${
         scrolled ? "top-2 md:top-3" : "top-4 md:top-6"
       }`}
     >

@@ -8,7 +8,6 @@ export default function MainLayout({
 }) {
   return (
     <div className="min-h-screen bg-[#131315] flex flex-col">
-      <AppNavbar />
       <main className="flex-1 pt-16">
         {children}
       </main>
