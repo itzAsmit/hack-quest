@@ -65,6 +65,7 @@ body {
   .card-canvas {
     position: relative;
     isolation: isolate;
+    border-radius: 1rem;
   }
 
   .card-backdrop {
@@ -72,47 +73,86 @@ body {
     inset: 0;
     border-radius: 1rem;
     background:
-      radial-gradient(70% 100% at 0% 0%, rgba(34, 211, 238, 0.08) 0%, transparent 60%),
-      radial-gradient(60% 100% at 100% 100%, rgba(52, 211, 153, 0.08) 0%, transparent 60%);
+      radial-gradient(80% 120% at 0% 0%, rgba(34, 211, 238, 0.16) 0%, transparent 60%),
+      radial-gradient(70% 120% at 100% 100%, rgba(52, 211, 153, 0.14) 0%, transparent 62%);
+    filter: blur(10px);
+    opacity: 0.65;
+    transition: opacity 0.25s ease;
     pointer-events: none;
     z-index: 0;
+  }
+
+  .card-canvas:hover .card-backdrop {
+    opacity: 1;
   }
 
   .glow-card {
     position: relative;
     border-radius: 1rem;
-    background: rgba(4, 8, 20, 0.72);
+    background:
+      radial-gradient(120% 90% at 50% -20%, rgba(56, 189, 248, 0.08), transparent 50%),
+      rgba(4, 8, 20, 0.8);
     border: 1px solid rgba(255, 255, 255, 0.1);
     overflow: hidden;
-    transition: border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+    transition: border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
   }
 
+  .glow-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(120deg, transparent 35%, rgba(34, 211, 238, 0.16) 50%, transparent 65%);
+    transform: translateX(-120%);
+    transition: transform 0.7s ease;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .glow-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(rgba(148, 163, 184, 0.18) 1px, transparent 1px);
+    background-size: 18px 18px;
+    opacity: 0.08;
+    pointer-events: none;
+    z-index: 1;
+  }
+
   .glow-card:hover {
-    border-color: rgba(34, 211, 238, 0.35);
-    box-shadow: 0 0 0 1px rgba(34, 211, 238, 0.14) inset, 0 12px 30px rgba(15, 23, 42, 0.5);
+    border-color: rgba(34, 211, 238, 0.55);
+    box-shadow:
+      0 0 0 1px rgba(34, 211, 238, 0.24) inset,
+      0 16px 34px rgba(2, 10, 28, 0.65),
+      0 0 28px rgba(34, 211, 238, 0.18);
     transform: translateY(-2px);
+  }
+
+  .glow-card:hover::before {
+    transform: translateX(120%);
   }
 
   .card-content {
     position: relative;
-    z-index: 2;
+    z-index: 3;
   }
 
   .border-element {
     position: absolute;
-    z-index: 1;
-    opacity: 0.7;
+    z-index: 2;
+    opacity: 0.72;
     pointer-events: none;
+    transition: opacity 0.25s ease;
   }
 
   .border-left,
   .border-right {
-    top: 14%;
-    height: 72%;
+    top: 12%;
+    height: 76%;
     width: 1px;
-    background: linear-gradient(to bottom, transparent, rgba(34, 211, 238, 0.6), transparent);
+    background: linear-gradient(to bottom, transparent, rgba(34, 211, 238, 0.82), transparent);
   }
 
   .border-left {
@@ -125,10 +165,10 @@ body {
 
   .border-top,
   .border-bottom {
-    left: 14%;
-    width: 72%;
+    left: 12%;
+    width: 76%;
     height: 1px;
-    background: linear-gradient(to right, transparent, rgba(34, 211, 238, 0.55), transparent);
+    background: linear-gradient(to right, transparent, rgba(34, 211, 238, 0.8), transparent);
   }
 
   .border-top {
@@ -137,6 +177,10 @@ body {
 
   .border-bottom {
     bottom: 0;
+  }
+
+  .glow-card:hover .border-element {
+    opacity: 1;
   }
 
   /* Gradient text */
