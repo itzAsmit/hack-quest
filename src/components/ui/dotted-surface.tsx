@@ -11,6 +11,7 @@ export function DottedSurface({ className, ...props }: DottedSurfaceProps) {
   const { theme } = useTheme();
 
   const containerRef = useRef<HTMLDivElement>(null);
+  const scrollProgressRef = useRef(0);
   const mouseRef = useRef<{ x: number; y: number; active: boolean }>({
     x: 0,
     y: 0,
@@ -113,11 +114,13 @@ export function DottedSurface({ className, ...props }: DottedSurfaceProps) {
       for (let ix = 0; ix < AMOUNTX; ix++) {
         for (let iy = 0; iy < AMOUNTY; iy++) {
           const index = i * 3;
+          const waveProgress = scrollProgressRef.current;
 
-          // Keep the base wave calm so text remains legible.
+          // Start static, then morph into waves as the user scrolls.
           const baseWave =
             Math.sin((ix + count) * 0.24) * 18 +
             Math.sin((iy + count) * 0.32) * 14;
+          const morphedWave = baseWave * waveProgress;
 
           // Subtle hover response around cursor.
           let hoverWave = 0;
@@ -130,11 +133,11 @@ export function DottedSurface({ className, ...props }: DottedSurfaceProps) {
             const radius = 7;
             if (dist < radius) {
               const intensity = 1 - dist / radius;
-              hoverWave = Math.sin(count * 1.8 + dist) * intensity * 10;
+              hoverWave = Math.sin(count * 1.8 + dist) * intensity * (2 + waveProgress * 8);
             }
           }
 
-          positions[index + 1] = baseWave + hoverWave;
+          positions[index + 1] = morphedWave + hoverWave;
 
           i++;
         }
@@ -172,9 +175,16 @@ export function DottedSurface({ className, ...props }: DottedSurfaceProps) {
       mouseRef.current.active = false;
     };
 
+    const handleScroll = () => {
+      // 0px = static dots, 500px+ = full wave behavior.
+      scrollProgressRef.current = Math.min(window.scrollY / 500, 1);
+    };
+
     window.addEventListener('resize', handleResize);
     window.addEventListener('mousemove', handleMouseMove);
     window.addEventListener('mouseout', handleMouseLeave);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
 
     // Start animation
     animate();
@@ -194,6 +204,7 @@ export function DottedSurface({ className, ...props }: DottedSurfaceProps) {
       window.removeEventListener('resize', handleResize);
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('mouseout', handleMouseLeave);
+      window.removeEventListener('scroll', handleScroll);
 
       if (sceneRef.current) {
         cancelAnimationFrame(sceneRef.current.animationId);
