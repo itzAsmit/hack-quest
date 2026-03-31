@@ -57,8 +57,9 @@ export function AppNavbar() {
 
   return (
     <motion.div
-      className="fixed left-1/2 z-50 w-[calc(100%-2rem)] max-w-[1550px] -translate-x-1/2"
+      className="fixed left-1/2 z-50 w-[calc(100%-2rem)] max-w-[1550px]"
       animate={{
+        x: "-50%",
         top: isCompact ? 8 : 16,
         y: isRaised ? -10 : 0,
       }}
