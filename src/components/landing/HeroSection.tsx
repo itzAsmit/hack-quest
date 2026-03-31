@@ -84,12 +84,12 @@ export function HeroSection() {
           className="relative mx-auto w-full max-w-md"
         >
           <CardCanvas>
-            <Card className="p-4">
+            <Card className="p-3.5">
               <p className="text-xs uppercase tracking-[0.15em] text-slate-300">Reward Conversion Flow</p>
               <p className="mt-1 text-sm text-slate-400">How Hacks become ALGO in your wallet</p>
 
               <div className="mt-4 grid gap-3">
-                <Card className="bg-white/[0.03] p-3">
+                <Card className="bg-white/[0.03] p-2.5">
                   <p className="text-[10px] uppercase tracking-[0.13em] text-slate-400">Step 1</p>
                   <div className="mt-1 flex items-start gap-2">
                     <Zap className="mt-0.5 h-4 w-4 text-yellow-300" />
@@ -110,7 +110,7 @@ export function HeroSection() {
                   </div>
                 </div>
 
-                <Card className="border-cyan-200/25 bg-cyan-300/10 p-3">
+                <Card className="border-cyan-200/25 bg-cyan-300/10 p-2.5">
                   <p className="text-[10px] uppercase tracking-[0.13em] text-cyan-100/80">Step 2</p>
                   <div className="mt-1 flex items-start gap-2">
                     <Coins className="mt-0.5 h-4 w-4 text-cyan-200" />
@@ -131,7 +131,7 @@ export function HeroSection() {
                   </div>
                 </div>
 
-                <Card className="border-emerald-200/25 bg-emerald-300/10 p-3">
+                <Card className="border-emerald-200/25 bg-emerald-300/10 p-2.5">
                   <p className="text-[10px] uppercase tracking-[0.13em] text-emerald-100/80">Step 3</p>
                   <div className="mt-1 flex items-start gap-2">
                     <Wallet className="mt-0.5 h-4 w-4 text-emerald-200" />
