@@ -8,12 +8,5 @@ const DottedSurface = dynamic(
 );
 
 export function DottedSurfaceWrapper() {
-  return (
-    <DottedSurface
-      dotColor={[110, 168, 255]}
-      dotOpacity={0.55}
-      mouseInfluence={140}
-      scrollFadeDistance={900}
-    />
-  );
+  return <DottedSurface />;
 }

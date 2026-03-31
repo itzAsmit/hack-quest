@@ -2,82 +2,62 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { ArrowRight, ShieldCheck, Sparkles, Target, Trophy } from "lucide-react";
-import LaserFlow from "@/components/landing/LaserFlow";
+import { ArrowRight, Compass, ShieldCheck, Sparkles } from "lucide-react";
+import { DottedSurface } from "@/components/ui/dotted-surface";
 
 export function HeroSection() {
+  const fadeInUp = {
+    initial: { opacity: 0, y: 22 },
+    whileInView: { opacity: 1, y: 0 },
+    viewport: { once: true, amount: 0.35 },
+    transition: { duration: 0.6, ease: "easeOut" as const },
+  };
+
   return (
-    <section className="relative flex min-h-screen items-center overflow-hidden px-4 pb-20 pt-28 sm:px-6">
-      <div className="absolute inset-0 z-0">
-        <LaserFlow
-          horizontalBeamOffset={0.08}
-          verticalBeamOffset={0}
-          horizontalSizing={0.52}
-          verticalSizing={2}
-          wispDensity={1}
-          wispSpeed={14}
-          wispIntensity={4}
-          flowSpeed={0.3}
-          flowStrength={0.22}
-          fogIntensity={0.48}
-          fogScale={0.28}
-          fogFallSpeed={0.62}
-          decay={1.1}
-          falloffStart={1.15}
-          color="#CDB4FF"
-        />
-      </div>
+    <section className="relative isolate flex min-h-[92vh] items-center overflow-hidden px-4 pb-16 pt-28 sm:px-6">
+      <DottedSurface className="-z-10 opacity-80" />
 
-      <div className="absolute inset-0 z-[1] bg-[radial-gradient(900px_circle_at_10%_10%,rgba(14,165,233,0.22),transparent_42%),radial-gradient(860px_circle_at_82%_14%,rgba(217,70,239,0.20),transparent_45%),linear-gradient(180deg,rgba(2,6,23,0.60)_0%,rgba(2,6,23,0.9)_78%)]" />
+      <div className="absolute inset-0 -z-[9] bg-[radial-gradient(1200px_circle_at_12%_8%,rgba(255,99,72,0.20),transparent_45%),radial-gradient(980px_circle_at_86%_12%,rgba(14,165,233,0.15),transparent_43%),linear-gradient(180deg,rgba(4,7,14,0.70)_0%,rgba(4,7,14,0.95)_75%)]" />
 
-      <div className="absolute inset-0 z-[2] pointer-events-none">
-        <div className="absolute left-[10%] top-[23%] h-20 w-20 rounded-2xl border border-cyan-200/20 bg-cyan-200/5 blur-[0.3px]" />
-        <div className="absolute right-[12%] top-[18%] h-28 w-28 rounded-full border border-fuchsia-300/20" />
-        <div className="absolute bottom-[14%] left-[14%] h-40 w-40 rounded-full bg-fuchsia-300/10 blur-3xl" />
-      </div>
-
-      <div className="relative z-10 mx-auto grid w-full max-w-6xl items-center gap-10 lg:grid-cols-[1.05fr_0.95fr]">
+      <div className="relative z-10 mx-auto grid w-full max-w-6xl items-center gap-10 lg:grid-cols-[1.1fr_0.9fr]">
         <div>
           <motion.span
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 rounded-full border border-cyan-200/30 bg-cyan-300/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-cyan-100"
+            {...fadeInUp}
+            className="inline-flex items-center gap-2 rounded-full border border-orange-200/30 bg-orange-200/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-orange-100"
           >
             <Sparkles className="h-3.5 w-3.5" />
-            HackQuest Platform
+            HackQuest Season Zero
           </motion.span>
 
           <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.55, delay: 0.08 }}
-            className="mt-6 font-heading text-4xl font-bold leading-tight text-white sm:text-5xl lg:text-7xl"
+            {...fadeInUp}
+            transition={{ duration: 0.65, delay: 0.08, ease: "easeOut" }}
+            className="mt-6 text-4xl font-black uppercase leading-[0.98] text-white sm:text-5xl lg:text-7xl"
+            style={{ fontFamily: "var(--font-heading)" }}
           >
-            Serious hackathons.
-            <span className="block bg-gradient-to-r from-cyan-100 via-violet-200 to-fuchsia-200 bg-clip-text text-transparent">
-              Modern reward mechanics.
+            Build Hard.
+            <span className="block bg-gradient-to-r from-orange-100 via-amber-200 to-sky-200 bg-clip-text text-transparent">
+              Earn On-Chain.
             </span>
           </motion.h1>
 
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.55, delay: 0.2 }}
-            className="mt-5 max-w-xl text-base leading-relaxed text-slate-300 sm:text-lg"
+            {...fadeInUp}
+            transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
+            className="mt-5 max-w-xl text-base leading-relaxed text-slate-200 sm:text-lg"
           >
-            HackQuest unifies event operations, quest progress, NFT rewards, and leaderboard movement in one focused interface for players and organisers.
+            HackQuest is the competitive layer for hackathons: quests, score flow, NFT rewards,
+            and organizer command tools in one fast interface.
           </motion.p>
 
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.55, delay: 0.3 }}
+            {...fadeInUp}
+            transition={{ duration: 0.6, delay: 0.3, ease: "easeOut" }}
             className="mt-8 flex flex-wrap items-center gap-3"
           >
             <Link
               href="/events"
-              className="inline-flex items-center gap-2 rounded-xl border border-cyan-200/40 bg-cyan-300/20 px-6 py-3 text-sm font-semibold uppercase tracking-[0.13em] text-cyan-50 transition hover:border-cyan-200/70 hover:bg-cyan-300/30"
+              className="inline-flex items-center gap-2 rounded-xl border border-orange-200/45 bg-orange-300/20 px-6 py-3 text-sm font-semibold uppercase tracking-[0.13em] text-orange-50 transition hover:border-orange-200/75 hover:bg-orange-300/30"
             >
               Explore Events
               <ArrowRight className="h-4 w-4" />
@@ -86,41 +66,51 @@ export function HeroSection() {
               href="/register"
               className="inline-flex items-center gap-2 rounded-xl border border-white/20 bg-white/[0.03] px-6 py-3 text-sm font-semibold uppercase tracking-[0.13em] text-white/90 transition hover:border-white/40 hover:bg-white/[0.07]"
             >
-              Create Profile
+              Start Building
             </Link>
+          </motion.div>
+
+          <motion.div
+            {...fadeInUp}
+            transition={{ duration: 0.6, delay: 0.4, ease: "easeOut" }}
+            className="mt-8 flex flex-wrap gap-3 text-[11px] uppercase tracking-[0.16em] text-slate-300"
+          >
+            <span className="rounded-full border border-white/15 bg-white/[0.03] px-3 py-1.5">Realtime quests</span>
+            <span className="rounded-full border border-white/15 bg-white/[0.03] px-3 py-1.5">NFT achievements</span>
+            <span className="rounded-full border border-white/15 bg-white/[0.03] px-3 py-1.5">Live leaderboard</span>
           </motion.div>
         </div>
 
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
+          {...fadeInUp}
+          transition={{ duration: 0.7, delay: 0.22, ease: "easeOut" }}
           className="grid gap-3"
         >
-          <div className="rounded-2xl border border-white/15 bg-slate-900/55 p-5 backdrop-blur-xl">
-            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-slate-300">Operator Snapshot</p>
-            <div className="mt-4 grid grid-cols-3 gap-2">
-              {[
-                { icon: Target, value: "42", label: "Live Quests" },
-                { icon: Trophy, value: "18.7K", label: "XP Today" },
-                { icon: ShieldCheck, value: "97%", label: "Event Uptime" },
-              ].map((item) => {
-                const Icon = item.icon;
-                return (
-                  <div key={item.label} className="rounded-xl border border-white/10 bg-white/[0.03] p-3">
-                    <Icon className="h-4 w-4 text-cyan-100" />
-                    <p className="mt-2 text-base font-semibold text-slate-100 sm:text-lg">{item.value}</p>
-                    <p className="text-[10px] uppercase tracking-[0.13em] text-slate-400">{item.label}</p>
-                  </div>
-                );
-              })}
+          <div className="overflow-hidden rounded-2xl border border-white/15 bg-slate-900/60 backdrop-blur-xl">
+            <img
+              src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1400&q=80"
+              alt="Hackathon team working with laptops"
+              className="h-52 w-full object-cover"
+            />
+            <div className="grid grid-cols-2 gap-2 p-4">
+              <div className="rounded-xl border border-white/10 bg-white/[0.03] p-3">
+                <Compass className="h-4 w-4 text-orange-200" />
+                <p className="mt-2 text-base font-semibold text-slate-100 sm:text-lg">42</p>
+                <p className="text-[10px] uppercase tracking-[0.13em] text-slate-400">Live Quests</p>
+              </div>
+              <div className="rounded-xl border border-white/10 bg-white/[0.03] p-3">
+                <ShieldCheck className="h-4 w-4 text-sky-200" />
+                <p className="mt-2 text-base font-semibold text-slate-100 sm:text-lg">97%</p>
+                <p className="text-[10px] uppercase tracking-[0.13em] text-slate-400">Event Uptime</p>
+              </div>
             </div>
           </div>
 
-          <div className="rounded-2xl border border-fuchsia-200/20 bg-fuchsia-300/10 p-4 backdrop-blur-xl">
-            <p className="text-xs uppercase tracking-[0.15em] text-fuchsia-100/80">Multi-role Surface</p>
-            <p className="mt-2 text-sm leading-relaxed text-fuchsia-50/95">
-              Players track progression and rewards while organisers run events and quest streams from dedicated dashboards.
+          <div className="rounded-2xl border border-orange-200/25 bg-orange-300/10 p-4 backdrop-blur-xl">
+            <p className="text-xs uppercase tracking-[0.15em] text-orange-100/80">Operator + Player Surface</p>
+            <p className="mt-2 text-sm leading-relaxed text-orange-50/95">
+              Players track momentum and rewards while organisers run events, moderate quests,
+              and ship outcomes live.
             </p>
           </div>
         </motion.div>
