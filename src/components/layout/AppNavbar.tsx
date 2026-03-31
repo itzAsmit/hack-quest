@@ -4,10 +4,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import {
-  Menu,
-  X,
-} from "lucide-react";
+import { Menu, X } from "lucide-react";
+import GlassSurface from "@/components/ui/GlassSurface";
 
 const APP_NAV_LINKS = [
   { label: "Home", href: "/" },
@@ -25,21 +23,27 @@ export function AppNavbar() {
   const lastScrollY = useRef(0);
 
   useEffect(() => {
-    const handleScroll = () => {
+    const onScroll = () => {
       const currentY = window.scrollY;
-      const isScrollingDown = currentY > lastScrollY.current;
+      const delta = currentY - lastScrollY.current;
 
-      setIsCompact(currentY > 16);
-      setIsRaised(isScrollingDown && currentY > 64);
+      if (currentY <= 16) {
+        setIsCompact(false);
+        setIsRaised(false);
+      } else {
+        setIsCompact(true);
+        if (delta > 1) setIsRaised(true);
+        if (delta < -1) setIsRaised(false);
+      }
 
       lastScrollY.current = currentY;
     };
 
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
 
     return () => {
-      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("scroll", onScroll);
     };
   }, []);
 
@@ -53,39 +57,61 @@ export function AppNavbar() {
 
   return (
     <motion.div
-      className="fixed left-1/2 z-50 w-[calc(100%-2rem)] max-w-[1540px] -translate-x-1/2"
+      className="fixed left-1/2 z-50 w-[calc(100%-2rem)] max-w-[1550px] -translate-x-1/2"
       animate={{
-        y: isRaised ? -10 : 0,
         top: isCompact ? 8 : 16,
+        y: isRaised ? -10 : 0,
       }}
       transition={{ duration: 0.28, ease: "easeOut" }}
     >
-      <div className="rounded-[999px] border border-transparent bg-black/65 px-4 md:px-6 backdrop-blur-xl shadow-[0_10px_28px_rgba(0,0,0,0.45)]">
+      <GlassSurface
+        width="100%"
+        height="auto"
+        borderRadius={999}
+        borderWidth={0.02}
+        displace={0.2}
+        distortionScale={-90}
+        redOffset={0}
+        greenOffset={0}
+        blueOffset={0}
+        brightness={26}
+        opacity={0.9}
+        backgroundOpacity={0.46}
+        saturation={1.05}
+        mixBlendMode="normal"
+        className="shadow-[0_10px_28px_rgba(0,0,0,0.45)]"
+      >
         <motion.div
-          className="grid grid-cols-[1fr_auto_1fr] items-center"
-          animate={{
-            minHeight: isCompact ? 56 : 66,
-          }}
+          className="grid w-full grid-cols-[1fr_auto_1fr] items-center px-4 md:px-6"
+          animate={{ minHeight: isCompact ? 56 : 66 }}
           transition={{ duration: 0.25, ease: "easeOut" }}
         >
-          {/* Left: logo */}
           <div className="flex justify-start">
-            <Link href="/" className="flex items-center gap-2.5 shrink-0 group">
-              <div className="w-7 h-7 rounded-full border border-white/20 flex items-center justify-center bg-white/5">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-white">
+            <Link href="/" className="flex items-center gap-2.5 shrink-0">
+              <div className="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center bg-black/25">
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="text-white"
+                >
                   <polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5 12 2" />
                   <line x1="12" y1="22" x2="12" y2="12" />
                   <line x1="22" y1="8.5" x2="12" y2="12" />
                   <line x1="2" y1="8.5" x2="12" y2="12" />
                 </svg>
               </div>
-              <span className="text-base font-black tracking-tight text-white uppercase font-heading hidden sm:block">
+              <span className="hidden sm:block font-heading text-base font-black uppercase tracking-tight text-white">
                 HACKQUEST
               </span>
             </Link>
           </div>
 
-          {/* Center: main nav */}
           <div className="hidden lg:flex items-center justify-center gap-8 text-[14px] font-medium text-white/70">
             {APP_NAV_LINKS.map((link) => (
               <Link
@@ -106,7 +132,6 @@ export function AppNavbar() {
             ))}
           </div>
 
-          {/* Right: CTA + mobile trigger */}
           <div className="flex items-center justify-end gap-3">
             <Link
               href="/dashboard/overview"
@@ -116,19 +141,14 @@ export function AppNavbar() {
             </Link>
 
             <button
-              className="lg:hidden p-2 rounded-full hover:bg-white/8 transition-colors text-white/80"
-              onClick={() => setMobileOpen(!mobileOpen)}
+              className="lg:hidden p-2 rounded-full hover:bg-white/10 transition-colors text-white/85"
+              onClick={() => setMobileOpen((prev) => !prev)}
             >
-              {mobileOpen ? (
-                <X className="w-5 h-5" />
-              ) : (
-                <Menu className="w-5 h-5" />
-              )}
+              {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
           </div>
         </motion.div>
 
-        {/* Mobile menu */}
         <AnimatePresence>
           {mobileOpen && (
             <motion.div
@@ -164,7 +184,7 @@ export function AppNavbar() {
             </motion.div>
           )}
         </AnimatePresence>
-      </div>
+      </GlassSurface>
     </motion.div>
   );
 }
