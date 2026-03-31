@@ -32,9 +32,10 @@ export function LandingNavbar() {
         redOffset={0}
         greenOffset={10}
         blueOffset={20}
-        brightness={50}
-        opacity={0.8}
-        mixBlendMode="screen"
+        brightness={20}
+        opacity={0.85}
+        backgroundOpacity={0.6}
+        mixBlendMode="normal"
         className="shadow-[0_0_40px_-10px_rgba(110,168,255,0.2)]"
       >
         <nav className="w-full flex items-center justify-between px-4 md:px-5 py-2.5">
@@ -56,31 +57,25 @@ export function LandingNavbar() {
         </div>
         
         {/* Center: Links */}
-        <div className="hidden lg:flex items-center justify-center gap-8 text-[13px] font-medium text-[rgba(255,255,255,0.8)] absolute left-1/2 -translate-x-1/2">
-          <Link href="#" className="hover:text-white transition-colors">Home</Link>
-          <Link href="#" className="flex items-center gap-1 hover:text-white transition-colors">Products <ChevronDown size={14} /></Link>
-          <Link href="#" className="hover:text-white transition-colors">Ecosystem</Link>
-          <Link href="#" className="hover:text-white transition-colors">Network</Link>
-          <Link href="#" className="hover:text-white transition-colors">Transparency</Link>
-          <Link href="#" className="flex items-center gap-1 hover:text-white transition-colors">Resources <ChevronDown size={14} /></Link>
+        <div className="hidden lg:flex items-center justify-center gap-8 text-[13px] font-medium text-[rgba(255,255,255,0.7)] absolute left-1/2 -translate-x-1/2 h-full">
+          <Link href="/" className="relative text-white transition-colors h-full flex flex-col justify-center">
+            Home
+            <span className="absolute bottom-1.5 left-1/2 -translate-x-1/2 w-[120%] h-[2px] bg-[#6ea8ff] shadow-[0_0_12px_3px_rgba(110,168,255,0.6)] rounded-full" />
+          </Link>
+          <Link href="/events" className="hover:text-white transition-colors flex flex-col justify-center">Events</Link>
+          <Link href="/leaderboard" className="hover:text-white transition-colors flex flex-col justify-center">Leaderboard</Link>
+          <Link href="/trading-hall" className="hover:text-white transition-colors flex flex-col justify-center">Trading Hall</Link>
+          <Link href="/nft-marketplace" className="hover:text-white transition-colors flex flex-col justify-center">NFT Marketplace</Link>
         </div>
         
-        {/* Right: Metrics & CTA */}
-        <div className="flex items-center gap-4 shrink-0">
-          <div className="hidden md:flex items-center gap-3 px-4 py-[6px] rounded-full border border-[rgba(255,255,255,0.12)] bg-transparent text-[11px] font-medium text-[rgba(255,255,255,0.9)]">
-            <span className="flex items-center gap-[6px] tracking-wide">
-              <span className="w-3 h-3 rounded-full border border-[rgba(255,255,255,0.3)] flex items-center justify-center text-[8px] opacity-70">i</span>
-              120+ Quests
-            </span>
-            <div className="w-px h-3 bg-white/20" />
-            <span className="flex items-center gap-[6px] tracking-wide">
-              <span className="w-3 h-3 rounded-full border border-[rgba(255,255,255,0.3)] flex items-center justify-center text-[8px] opacity-70">i</span>
-              45k+ Devs
-            </span>
-          </div>
-          <button className="px-5 py-2 rounded-full border border-[rgba(255,255,255,0.15)] hover:bg-[rgba(255,255,255,0.05)] transition-colors text-[13px] font-medium text-white bg-transparent shrink-0">
-            Launch App
-          </button>
+        {/* Right: Auth & Registration */}
+        <div className="flex items-center gap-5 shrink-0">
+          <Link href="/organiser-login" className="hidden md:block text-[13px] font-medium text-[rgba(255,255,255,0.8)] hover:text-white transition-colors">
+            Organiser Login
+          </Link>
+          <Link href="/register" className="px-5 py-[8px] rounded-full border border-[rgba(255,255,255,0.15)] hover:bg-[rgba(255,255,255,0.05)] transition-colors text-[13px] font-medium text-white bg-transparent shrink-0">
+            Register Now
+          </Link>
         </div>
       </nav>
       </GlassSurface>
