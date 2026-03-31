@@ -41,13 +41,15 @@ type HeroSectionProps = {
 
 export function HeroSection({ introComplete }: HeroSectionProps) {
   return (
-    <div className="relative w-full h-[100vh] flex flex-col justify-between pt-0 pb-12 z-10 pointer-events-none font-sans">
+    <div className="relative w-full h-[100vh] p-3 md:p-5 lg:p-6 flex flex-col z-10 pointer-events-none font-sans">
       
-      <AsciiPattern />
-
-
-
-      {/* Mid Left Content */}
+      {/* 
+        The "Blue Card" specific to the Hero Section. 
+        It visually encapsulates the hero text and metrics while allowing the 3D Earth underneath to be interacted with via pointer-events-none.
+      */}
+      <div className="relative w-full h-full rounded-[1.5rem] md:rounded-[2rem] border border-[rgba(110,168,255,0.15)] bg-[rgba(10,17,40,0.25)] shadow-[inset_0_0_100px_-20px_rgba(110,168,255,0.1),0_0_50px_-20px_rgba(110,168,255,0.1)] overflow-hidden flex flex-col justify-between pt-16 pb-12 pointer-events-none">
+        
+        <AsciiPattern />      {/* Mid Left Content */}
       <motion.div
         initial={{ opacity: 0, y: 24 }}
         animate={{ opacity: 1, y: 0 }}
@@ -97,14 +99,16 @@ export function HeroSection({ introComplete }: HeroSectionProps) {
         </div>
       </motion.div>
 
-      <motion.div
-        aria-hidden="true"
-        initial={{ opacity: 1 }}
-        animate={{ opacity: introComplete ? 0 : 1 }}
-        transition={{ duration: 0.8, ease: "easeInOut" }}
-        className="pointer-events-none absolute inset-0 z-[15] bg-[radial-gradient(1200px_circle_at_50%_50%,rgba(5,7,13,0)_0%,rgba(5,7,13,0.55)_70%,rgba(5,7,13,0.8)_100%)]"
-      />
 
+        <motion.div
+          aria-hidden="true"
+          initial={{ opacity: 1 }}
+          animate={{ opacity: introComplete ? 0 : 1 }}
+          transition={{ duration: 0.8, ease: "easeInOut" }}
+          className="pointer-events-none absolute inset-0 z-[15] bg-[radial-gradient(1200px_circle_at_50%_50%,rgba(5,7,13,0)_0%,rgba(5,7,13,0.55)_70%,rgba(5,7,13,0.8)_100%)]"
+        />
+
+      </div>
     </div>
   );
 }

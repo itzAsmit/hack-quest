@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { ChevronDown } from "lucide-react";
+import GlassSurface from "@/components/ui/GlassSurface";
 
 export function LandingNavbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -21,7 +22,22 @@ export function LandingNavbar() {
         scrolled ? "top-2 md:top-4" : "top-6 md:top-8"
       }`}
     >
-      <nav className="w-full rounded-full border border-[rgba(110,168,255,0.15)] bg-[#0A1128]/80 backdrop-blur-md flex items-center justify-between px-4 md:px-5 py-2.5 shadow-[0_0_40px_-10px_rgba(110,168,255,0.2)] transition-all duration-500">
+      <GlassSurface
+        width="100%"
+        height="auto"
+        borderRadius={40}
+        borderWidth={0.03}
+        displace={0.3}
+        distortionScale={-180}
+        redOffset={0}
+        greenOffset={10}
+        blueOffset={20}
+        brightness={50}
+        opacity={0.8}
+        mixBlendMode="screen"
+        className="shadow-[0_0_40px_-10px_rgba(110,168,255,0.2)]"
+      >
+        <nav className="w-full flex items-center justify-between px-4 md:px-5 py-2.5">
         
         {/* Left: Logo */}
         <div className="flex items-center gap-3 relative shrink-0">
@@ -67,6 +83,7 @@ export function LandingNavbar() {
           </button>
         </div>
       </nav>
+      </GlassSurface>
     </div>
   );
 }
