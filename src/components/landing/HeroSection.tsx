@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { ArrowRight, Coins, Wallet, Zap } from "lucide-react";
 import { DottedSurface } from "@/components/ui/dotted-surface";
+import { Card, CardCanvas } from "@/components/ui/animated-glow-card";
 
 export function HeroSection() {
   const fadeInUp = {
@@ -82,65 +83,67 @@ export function HeroSection() {
           transition={{ duration: 0.7, delay: 0.22, ease: "easeOut" }}
           className="relative mx-auto w-full max-w-md"
         >
-          <div className="rounded-2xl border border-white/15 bg-black/55 p-4 backdrop-blur-lg">
-            <p className="text-xs uppercase tracking-[0.15em] text-slate-300">Reward Conversion Flow</p>
-            <p className="mt-1 text-sm text-slate-400">How Hacks become ALGO in your wallet</p>
+          <CardCanvas>
+            <Card className="p-4">
+              <p className="text-xs uppercase tracking-[0.15em] text-slate-300">Reward Conversion Flow</p>
+              <p className="mt-1 text-sm text-slate-400">How Hacks become ALGO in your wallet</p>
 
-            <div className="mt-4 grid gap-3">
-              <div className="rounded-xl border border-white/10 bg-white/[0.03] p-3">
-                <p className="text-[10px] uppercase tracking-[0.13em] text-slate-400">Step 1</p>
-                <div className="mt-1 flex items-start gap-2">
-                  <Zap className="mt-0.5 h-4 w-4 text-yellow-300" />
-                  <div>
-                    <p className="text-sm font-semibold text-slate-100">Earn Hacks</p>
-                    <p className="text-xs text-slate-400">Complete quests and rank up in events.</p>
+              <div className="mt-4 grid gap-3">
+                <Card className="bg-white/[0.03] p-3">
+                  <p className="text-[10px] uppercase tracking-[0.13em] text-slate-400">Step 1</p>
+                  <div className="mt-1 flex items-start gap-2">
+                    <Zap className="mt-0.5 h-4 w-4 text-yellow-300" />
+                    <div>
+                      <p className="text-sm font-semibold text-slate-100">Earn Hacks</p>
+                      <p className="text-xs text-slate-400">Complete quests and rank up in events.</p>
+                    </div>
+                  </div>
+                </Card>
+
+                <div className="flex justify-center py-0.5">
+                  <div className="relative h-8 w-px bg-cyan-200/30">
+                    <motion.span
+                      className="absolute left-1/2 h-2 w-2 -translate-x-1/2 rounded-full bg-cyan-200"
+                      animate={{ y: [0, 22, 0], opacity: [0.3, 1, 0.3] }}
+                      transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
+                    />
                   </div>
                 </div>
-              </div>
 
-              <div className="flex justify-center py-0.5">
-                <div className="relative h-8 w-px bg-cyan-200/30">
-                  <motion.span
-                    className="absolute left-1/2 h-2 w-2 -translate-x-1/2 rounded-full bg-cyan-200"
-                    animate={{ y: [0, 22, 0], opacity: [0.3, 1, 0.3] }}
-                    transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
-                  />
-                </div>
-              </div>
+                <Card className="border-cyan-200/25 bg-cyan-300/10 p-3">
+                  <p className="text-[10px] uppercase tracking-[0.13em] text-cyan-100/80">Step 2</p>
+                  <div className="mt-1 flex items-start gap-2">
+                    <Coins className="mt-0.5 h-4 w-4 text-cyan-200" />
+                    <div>
+                      <p className="text-sm font-semibold text-cyan-50">Convert to ALGO</p>
+                      <p className="text-xs text-cyan-100/75">Platform settles reward value into ALGO.</p>
+                    </div>
+                  </div>
+                </Card>
 
-              <div className="rounded-xl border border-cyan-200/20 bg-cyan-300/10 p-3">
-                <p className="text-[10px] uppercase tracking-[0.13em] text-cyan-100/80">Step 2</p>
-                <div className="mt-1 flex items-start gap-2">
-                  <Coins className="mt-0.5 h-4 w-4 text-cyan-200" />
-                  <div>
-                    <p className="text-sm font-semibold text-cyan-50">Convert to ALGO</p>
-                    <p className="text-xs text-cyan-100/75">Platform settles reward value into ALGO.</p>
+                <div className="flex justify-center py-0.5">
+                  <div className="relative h-8 w-px bg-emerald-200/30">
+                    <motion.span
+                      className="absolute left-1/2 h-2 w-2 -translate-x-1/2 rounded-full bg-emerald-200"
+                      animate={{ y: [0, 22, 0], opacity: [0.3, 1, 0.3] }}
+                      transition={{ duration: 1.8, delay: 0.35, repeat: Infinity, ease: "easeInOut" }}
+                    />
                   </div>
                 </div>
-              </div>
 
-              <div className="flex justify-center py-0.5">
-                <div className="relative h-8 w-px bg-emerald-200/30">
-                  <motion.span
-                    className="absolute left-1/2 h-2 w-2 -translate-x-1/2 rounded-full bg-emerald-200"
-                    animate={{ y: [0, 22, 0], opacity: [0.3, 1, 0.3] }}
-                    transition={{ duration: 1.8, delay: 0.35, repeat: Infinity, ease: "easeInOut" }}
-                  />
-                </div>
-              </div>
-
-              <div className="rounded-xl border border-emerald-200/20 bg-emerald-300/10 p-3">
-                <p className="text-[10px] uppercase tracking-[0.13em] text-emerald-100/80">Step 3</p>
-                <div className="mt-1 flex items-start gap-2">
-                  <Wallet className="mt-0.5 h-4 w-4 text-emerald-200" />
-                  <div>
-                    <p className="text-sm font-semibold text-emerald-50">Transfer to Wallet</p>
-                    <p className="text-xs text-emerald-100/75">Send ALGO directly to the connected address.</p>
+                <Card className="border-emerald-200/25 bg-emerald-300/10 p-3">
+                  <p className="text-[10px] uppercase tracking-[0.13em] text-emerald-100/80">Step 3</p>
+                  <div className="mt-1 flex items-start gap-2">
+                    <Wallet className="mt-0.5 h-4 w-4 text-emerald-200" />
+                    <div>
+                      <p className="text-sm font-semibold text-emerald-50">Transfer to Wallet</p>
+                      <p className="text-xs text-emerald-100/75">Send ALGO directly to the connected address.</p>
+                    </div>
                   </div>
-                </div>
+                </Card>
               </div>
-            </div>
-          </div>
+            </Card>
+          </CardCanvas>
         </motion.div>
       </div>
     </section>

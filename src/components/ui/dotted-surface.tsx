@@ -11,6 +11,11 @@ export function DottedSurface({ className, ...props }: DottedSurfaceProps) {
   const { theme } = useTheme();
 
   const containerRef = useRef<HTMLDivElement>(null);
+  const mouseRef = useRef<{ x: number; y: number; active: boolean }>({
+    x: 0,
+    y: 0,
+    active: false,
+  });
 
   const sceneRef = useRef<{
     scene: THREE.Scene;
@@ -109,10 +114,27 @@ export function DottedSurface({ className, ...props }: DottedSurfaceProps) {
         for (let iy = 0; iy < AMOUNTY; iy++) {
           const index = i * 3;
 
-          // Animate Y position with sine waves
-          positions[index + 1] =
-            Math.sin((ix + count) * 0.3) * 50 +
-            Math.sin((iy + count) * 0.5) * 50;
+          // Keep the base wave calm so text remains legible.
+          const baseWave =
+            Math.sin((ix + count) * 0.24) * 18 +
+            Math.sin((iy + count) * 0.32) * 14;
+
+          // Subtle hover response around cursor.
+          let hoverWave = 0;
+          if (mouseRef.current.active) {
+            const mouseIx = (mouseRef.current.x / window.innerWidth) * AMOUNTX;
+            const mouseIy = (mouseRef.current.y / window.innerHeight) * AMOUNTY;
+            const dx = ix - mouseIx;
+            const dy = iy - mouseIy;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            const radius = 7;
+            if (dist < radius) {
+              const intensity = 1 - dist / radius;
+              hoverWave = Math.sin(count * 1.8 + dist) * intensity * 10;
+            }
+          }
+
+          positions[index + 1] = baseWave + hoverWave;
 
           i++;
         }
@@ -130,7 +152,7 @@ export function DottedSurface({ className, ...props }: DottedSurfaceProps) {
       }
 
       renderer.render(scene, camera);
-      count += 0.1;
+      count += 0.06;
     };
 
     // Handle window resize
@@ -140,7 +162,19 @@ export function DottedSurface({ className, ...props }: DottedSurfaceProps) {
       renderer.setSize(window.innerWidth, window.innerHeight);
     };
 
+    const handleMouseMove = (event: MouseEvent) => {
+      mouseRef.current.x = event.clientX;
+      mouseRef.current.y = event.clientY;
+      mouseRef.current.active = true;
+    };
+
+    const handleMouseLeave = () => {
+      mouseRef.current.active = false;
+    };
+
     window.addEventListener('resize', handleResize);
+    window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('mouseout', handleMouseLeave);
 
     // Start animation
     animate();
@@ -158,6 +192,8 @@ export function DottedSurface({ className, ...props }: DottedSurfaceProps) {
     // Cleanup function
     return () => {
       window.removeEventListener('resize', handleResize);
+      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('mouseout', handleMouseLeave);
 
       if (sceneRef.current) {
         cancelAnimationFrame(sceneRef.current.animationId);

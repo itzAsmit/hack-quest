@@ -12,6 +12,7 @@ import {
   Sparkles,
   Target,
 } from "lucide-react";
+import { Card, CardCanvas } from "@/components/ui/animated-glow-card";
 
 const features = [
   {
@@ -110,21 +111,24 @@ export function LandingFeatureGrid() {
                 transition={{ duration: 0.45, delay: index * 0.06 }}
                 className="group"
               >
-                <Link
-                  href={feature.href}
-                  className="relative block h-full overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03] p-5 backdrop-blur-xl transition duration-300 hover:-translate-y-0.5 hover:border-cyan-200/30 hover:bg-white/[0.05]"
-                >
-                  <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-200/60 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-                  <div className="mb-4 inline-flex rounded-xl border border-cyan-100/20 bg-slate-900/80 p-2.5 text-cyan-100">
-                    <Icon className="h-4 w-4" />
-                  </div>
-                  <h3 className="text-lg font-semibold text-slate-100">{feature.title}</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-slate-300">{feature.description}</p>
-                  <span className="mt-5 inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-[0.14em] text-cyan-100/80">
-                    Explore
-                    <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5" />
-                  </span>
-                </Link>
+                <CardCanvas>
+                  <Card className="h-full">
+                    <Link
+                      href={feature.href}
+                      className="relative block h-full overflow-hidden rounded-2xl p-5"
+                    >
+                      <div className="mb-4 inline-flex rounded-xl border border-cyan-100/20 bg-slate-900/80 p-2.5 text-cyan-100">
+                        <Icon className="h-4 w-4" />
+                      </div>
+                      <h3 className="text-lg font-semibold text-slate-100">{feature.title}</h3>
+                      <p className="mt-2 text-sm leading-relaxed text-slate-300">{feature.description}</p>
+                      <span className="mt-5 inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-[0.14em] text-cyan-100/80">
+                        Explore
+                        <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5" />
+                      </span>
+                    </Link>
+                  </Card>
+                </CardCanvas>
               </motion.div>
             );
           })}
@@ -138,11 +142,14 @@ export function LandingFeatureGrid() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: index * 0.08 }}
-              className="rounded-2xl border border-white/10 bg-white/[0.02] p-4"
             >
-              <span className="text-xs font-semibold tracking-[0.15em] text-cyan-200/80">{step.id}</span>
-              <h3 className="mt-2 text-sm font-semibold text-white sm:text-base">{step.title}</h3>
-              <p className="mt-1.5 text-xs leading-relaxed text-slate-300 sm:text-sm">{step.text}</p>
+              <CardCanvas>
+                <Card className="p-4">
+                  <span className="text-xs font-semibold tracking-[0.15em] text-cyan-200/80">{step.id}</span>
+                  <h3 className="mt-2 text-sm font-semibold text-white sm:text-base">{step.title}</h3>
+                  <p className="mt-1.5 text-xs leading-relaxed text-slate-300 sm:text-sm">{step.text}</p>
+                </Card>
+              </CardCanvas>
             </motion.div>
           ))}
         </div>
