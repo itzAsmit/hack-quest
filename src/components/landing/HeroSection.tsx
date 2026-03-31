@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { ArrowRight, Compass, ShieldCheck, Sparkles } from "lucide-react";
+import { ArrowRight, Coins, Wallet, Zap } from "lucide-react";
 import { DottedSurface } from "@/components/ui/dotted-surface";
 
 export function HeroSection() {
@@ -15,39 +15,35 @@ export function HeroSection() {
 
   return (
     <section className="relative isolate flex min-h-[92vh] items-center overflow-hidden px-4 pb-16 pt-28 sm:px-6">
-      <DottedSurface className="-z-10 opacity-80" />
+      <DottedSurface className="-z-10 opacity-90" />
 
-      <div className="absolute inset-0 -z-[9] bg-[radial-gradient(1200px_circle_at_12%_8%,rgba(255,99,72,0.20),transparent_45%),radial-gradient(980px_circle_at_86%_12%,rgba(14,165,233,0.15),transparent_43%),linear-gradient(180deg,rgba(4,7,14,0.70)_0%,rgba(4,7,14,0.95)_75%)]" />
-
-      <div className="relative z-10 mx-auto grid w-full max-w-6xl items-center gap-10 lg:grid-cols-[1.1fr_0.9fr]">
+      <div className="relative z-10 mx-auto grid w-full max-w-6xl items-center gap-10 lg:grid-cols-[1.05fr_0.95fr]">
         <div>
           <motion.span
             {...fadeInUp}
-            className="inline-flex items-center gap-2 rounded-full border border-orange-200/30 bg-orange-200/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-orange-100"
+            className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-black/35 px-3.5 py-1 text-[11px] font-semibold uppercase tracking-[0.15em] text-slate-200"
           >
-            <Sparkles className="h-3.5 w-3.5" />
-            HackQuest Season Zero
+            <Zap className="h-3.5 w-3.5" />
+            HackQuest Reward Rail
           </motion.span>
 
           <motion.h1
             {...fadeInUp}
             transition={{ duration: 0.65, delay: 0.08, ease: "easeOut" }}
-            className="mt-6 text-4xl font-black uppercase leading-[0.98] text-white sm:text-5xl lg:text-7xl"
+            className="mt-5 text-4xl font-bold leading-[1.02] text-white sm:text-5xl lg:text-6xl"
             style={{ fontFamily: "var(--font-heading)" }}
           >
-            Build Hard.
-            <span className="block bg-gradient-to-r from-orange-100 via-amber-200 to-sky-200 bg-clip-text text-transparent">
-              Earn On-Chain.
-            </span>
+            Build with hacks.
+            <span className="block text-slate-300">Withdraw in ALGO.</span>
           </motion.h1>
 
           <motion.p
             {...fadeInUp}
             transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
-            className="mt-5 max-w-xl text-base leading-relaxed text-slate-200 sm:text-lg"
+            className="mt-5 max-w-xl text-base leading-relaxed text-slate-300 sm:text-lg"
           >
-            HackQuest is the competitive layer for hackathons: quests, score flow, NFT rewards,
-            and organizer command tools in one fast interface.
+            Complete quests to earn Hacks, convert value to ALGO, and transfer directly to
+            connected wallets with full visibility.
           </motion.p>
 
           <motion.div
@@ -57,66 +53,96 @@ export function HeroSection() {
           >
             <Link
               href="/events"
-              className="inline-flex items-center gap-2 rounded-xl border border-orange-200/45 bg-orange-300/20 px-6 py-3 text-sm font-semibold uppercase tracking-[0.13em] text-orange-50 transition hover:border-orange-200/75 hover:bg-orange-300/30"
+              className="inline-flex items-center gap-2 rounded-xl border border-white/25 bg-white/10 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-white/15"
             >
               Explore Events
               <ArrowRight className="h-4 w-4" />
             </Link>
             <Link
-              href="/register"
-              className="inline-flex items-center gap-2 rounded-xl border border-white/20 bg-white/[0.03] px-6 py-3 text-sm font-semibold uppercase tracking-[0.13em] text-white/90 transition hover:border-white/40 hover:bg-white/[0.07]"
+              href="/dashboard/wallet"
+              className="inline-flex items-center gap-2 rounded-xl border border-cyan-200/30 bg-cyan-300/10 px-5 py-2.5 text-sm font-semibold text-cyan-100 transition hover:bg-cyan-300/20"
             >
-              Start Building
+              Open Wallet
             </Link>
           </motion.div>
 
           <motion.div
             {...fadeInUp}
             transition={{ duration: 0.6, delay: 0.4, ease: "easeOut" }}
-            className="mt-8 flex flex-wrap gap-3 text-[11px] uppercase tracking-[0.16em] text-slate-300"
+            className="mt-8 flex flex-wrap gap-2 text-xs text-slate-300"
           >
-            <span className="rounded-full border border-white/15 bg-white/[0.03] px-3 py-1.5">Realtime quests</span>
-            <span className="rounded-full border border-white/15 bg-white/[0.03] px-3 py-1.5">NFT achievements</span>
-            <span className="rounded-full border border-white/15 bg-white/[0.03] px-3 py-1.5">Live leaderboard</span>
+            <span className="rounded-full border border-white/15 bg-black/35 px-3 py-1">Quest XP</span>
+            <span className="rounded-full border border-white/15 bg-black/35 px-3 py-1">Hacks balance</span>
+            <span className="rounded-full border border-white/15 bg-black/35 px-3 py-1">ALGO transfer</span>
           </motion.div>
         </div>
 
         <motion.div
           {...fadeInUp}
           transition={{ duration: 0.7, delay: 0.22, ease: "easeOut" }}
-          className="grid gap-3"
+          className="relative mx-auto w-full max-w-md"
         >
-          <div className="overflow-hidden rounded-2xl border border-white/15 bg-slate-900/60 backdrop-blur-xl">
-            <img
-              src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1400&q=80"
-              alt="Hackathon team working with laptops"
-              className="h-52 w-full object-cover"
-            />
-            <div className="grid grid-cols-2 gap-2 p-4">
+          <div className="rounded-2xl border border-white/15 bg-black/55 p-4 backdrop-blur-lg">
+            <p className="text-xs uppercase tracking-[0.15em] text-slate-300">Reward Conversion Flow</p>
+            <p className="mt-1 text-sm text-slate-400">How Hacks become ALGO in your wallet</p>
+
+            <div className="mt-4 grid gap-3">
               <div className="rounded-xl border border-white/10 bg-white/[0.03] p-3">
-                <Compass className="h-4 w-4 text-orange-200" />
-                <p className="mt-2 text-base font-semibold text-slate-100 sm:text-lg">42</p>
-                <p className="text-[10px] uppercase tracking-[0.13em] text-slate-400">Live Quests</p>
+                <p className="text-[10px] uppercase tracking-[0.13em] text-slate-400">Step 1</p>
+                <div className="mt-1 flex items-start gap-2">
+                  <Zap className="mt-0.5 h-4 w-4 text-yellow-300" />
+                  <div>
+                    <p className="text-sm font-semibold text-slate-100">Earn Hacks</p>
+                    <p className="text-xs text-slate-400">Complete quests and rank up in events.</p>
+                  </div>
+                </div>
               </div>
-              <div className="rounded-xl border border-white/10 bg-white/[0.03] p-3">
-                <ShieldCheck className="h-4 w-4 text-sky-200" />
-                <p className="mt-2 text-base font-semibold text-slate-100 sm:text-lg">97%</p>
-                <p className="text-[10px] uppercase tracking-[0.13em] text-slate-400">Event Uptime</p>
+
+              <div className="flex justify-center py-0.5">
+                <div className="relative h-8 w-px bg-cyan-200/30">
+                  <motion.span
+                    className="absolute left-1/2 h-2 w-2 -translate-x-1/2 rounded-full bg-cyan-200"
+                    animate={{ y: [0, 22, 0], opacity: [0.3, 1, 0.3] }}
+                    transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
+                  />
+                </div>
+              </div>
+
+              <div className="rounded-xl border border-cyan-200/20 bg-cyan-300/10 p-3">
+                <p className="text-[10px] uppercase tracking-[0.13em] text-cyan-100/80">Step 2</p>
+                <div className="mt-1 flex items-start gap-2">
+                  <Coins className="mt-0.5 h-4 w-4 text-cyan-200" />
+                  <div>
+                    <p className="text-sm font-semibold text-cyan-50">Convert to ALGO</p>
+                    <p className="text-xs text-cyan-100/75">Platform settles reward value into ALGO.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex justify-center py-0.5">
+                <div className="relative h-8 w-px bg-emerald-200/30">
+                  <motion.span
+                    className="absolute left-1/2 h-2 w-2 -translate-x-1/2 rounded-full bg-emerald-200"
+                    animate={{ y: [0, 22, 0], opacity: [0.3, 1, 0.3] }}
+                    transition={{ duration: 1.8, delay: 0.35, repeat: Infinity, ease: "easeInOut" }}
+                  />
+                </div>
+              </div>
+
+              <div className="rounded-xl border border-emerald-200/20 bg-emerald-300/10 p-3">
+                <p className="text-[10px] uppercase tracking-[0.13em] text-emerald-100/80">Step 3</p>
+                <div className="mt-1 flex items-start gap-2">
+                  <Wallet className="mt-0.5 h-4 w-4 text-emerald-200" />
+                  <div>
+                    <p className="text-sm font-semibold text-emerald-50">Transfer to Wallet</p>
+                    <p className="text-xs text-emerald-100/75">Send ALGO directly to the connected address.</p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-
-          <div className="rounded-2xl border border-orange-200/25 bg-orange-300/10 p-4 backdrop-blur-xl">
-            <p className="text-xs uppercase tracking-[0.15em] text-orange-100/80">Operator + Player Surface</p>
-            <p className="mt-2 text-sm leading-relaxed text-orange-50/95">
-              Players track momentum and rewards while organisers run events, moderate quests,
-              and ship outcomes live.
-            </p>
-          </div>
         </motion.div>
       </div>
-
-      <div className="absolute bottom-0 left-0 right-0 z-[2] h-36 bg-gradient-to-t from-hq-bg-primary to-transparent" />
     </section>
   );
 }
