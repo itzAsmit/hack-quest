@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Space_Grotesk, Inter } from "next/font/google";
 import { ToastProvider } from "@/components/shared/Toast";
+import { ThemeProvider } from "@/components/shared/ThemeProvider";
+import { AppNavbar } from "@/components/layout/AppNavbar";
+import { DottedSurfaceWrapper } from "@/components/shared/DottedSurfaceWrapper";
 import "./globals.css";
 
 const spaceGrotesk = Space_Grotesk({
@@ -30,24 +33,30 @@ export const metadata: Metadata = {
   },
 };
 
-import { AppNavbar } from "@/components/layout/AppNavbar";
-
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en" className="dark" suppressHydrationWarning>
       <body
         className={`${spaceGrotesk.variable} ${inter.variable} font-body antialiased bg-hq-bg-primary text-hq-text-primary`}
       >
-        <ToastProvider>
-          <AppNavbar />
-          {children}
-        </ToastProvider>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          enableSystem={false}
+          disableTransitionOnChange
+        >
+          <ToastProvider>
+            {/* Global dotted-surface background */}
+            <DottedSurfaceWrapper />
+            <AppNavbar />
+            {children}
+          </ToastProvider>
+        </ThemeProvider>
       </body>
     </html>
   );
 }
-
