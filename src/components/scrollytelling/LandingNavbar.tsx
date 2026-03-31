@@ -21,7 +21,7 @@ export function LandingNavbar() {
         scrolled ? "top-2 md:top-4" : "top-6 md:top-8"
       }`}
     >
-      <nav className="w-full rounded-full border border-[rgba(255,255,255,0.08)] bg-[#000000]/80 backdrop-blur-md flex items-center justify-between px-4 md:px-5 py-2.5 shadow-2xl transition-all duration-500">
+      <nav className="w-full rounded-full border border-[rgba(110,168,255,0.15)] bg-[#0A1128]/80 backdrop-blur-md flex items-center justify-between px-4 md:px-5 py-2.5 shadow-[0_0_40px_-10px_rgba(110,168,255,0.2)] transition-all duration-500">
         
         {/* Left: Logo */}
         <div className="flex items-center gap-3 relative shrink-0">
