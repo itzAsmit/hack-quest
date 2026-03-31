@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
-import GlassSurface from "@/components/ui/GlassSurface";
+import GlassSurface from "../ui/GlassSurface";
 
 const APP_NAV_LINKS = [
   { label: "Home", href: "/" },

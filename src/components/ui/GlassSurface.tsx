@@ -42,7 +42,7 @@ export interface GlassSurfaceProps {
 }
 
 const useDarkMode = () => {
-  const [isDark, setIsDark] = useState(true); // default dark
+  const [isDark, setIsDark] = useState(false);
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
@@ -180,6 +180,20 @@ const GlassSurface: React.FC<GlassSurfaceProps> = ({
   }, []);
 
   useEffect(() => {
+    if (!containerRef.current) return;
+
+    const resizeObserver = new ResizeObserver(() => {
+      setTimeout(updateDisplacementMap, 0);
+    });
+
+    resizeObserver.observe(containerRef.current);
+
+    return () => {
+      resizeObserver.disconnect();
+    };
+  }, []);
+
+  useEffect(() => {
     setTimeout(updateDisplacementMap, 0);
   }, [width, height]);
 
@@ -254,12 +268,12 @@ const GlassSurface: React.FC<GlassSurfaceProps> = ({
         } else {
           return {
             ...baseStyles,
-            background: 'rgba(255, 255, 255, 0.05)',
+            background: 'rgba(255, 255, 255, 0.1)',
             backdropFilter: 'blur(12px) saturate(1.8) brightness(1.2)',
             WebkitBackdropFilter: 'blur(12px) saturate(1.8) brightness(1.2)',
-            border: '1px solid rgba(255, 255, 255, 0.1)',
-            boxShadow: `inset 0 1px 0 0 rgba(255, 255, 255, 0.1),
-                        inset 0 -1px 0 0 rgba(255, 255, 255, 0.05)`
+            border: '1px solid rgba(255, 255, 255, 0.2)',
+            boxShadow: `inset 0 1px 0 0 rgba(255, 255, 255, 0.2),
+                        inset 0 -1px 0 0 rgba(255, 255, 255, 0.1)`
           };
         }
       } else {
@@ -355,7 +369,7 @@ const GlassSurface: React.FC<GlassSurfaceProps> = ({
         </defs>
       </svg>
 
-      <div className="w-full h-full flex items-center justify-center p-0 rounded-[inherit] relative z-10">
+      <div className="w-full h-full flex items-center justify-center p-2 rounded-[inherit] relative z-10">
         {children}
       </div>
     </div>
