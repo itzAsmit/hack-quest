@@ -25,6 +25,18 @@ body {
   background-image: radial-gradient(circle at 50% 0%, rgba(110, 168, 255, 0.03) 0%, transparent 50%);
 }
 
+@keyframes hqParticleFloat {
+  0% {
+    transform: translate(-50%, -50%) translateY(0px);
+  }
+  50% {
+    transform: translate(-50%, -50%) translateY(-7px);
+  }
+  100% {
+    transform: translate(-50%, -50%) translateY(0px);
+  }
+}
+
 /* Scrollbar */
 ::-webkit-scrollbar {
   width: 6px;

@@ -6,6 +6,17 @@ import { ArrowUpRight, Radar, Sparkles } from "lucide-react";
 import Link from "next/link";
 import LaserFlow from "@/components/landing/LaserFlow";
 
+type TinyParticle = {
+  id: string;
+  glyph: "0" | "1" | "$";
+  left: number;
+  top: number;
+  opacity: number;
+  size: number;
+  delay: number;
+  duration: number;
+};
+
 export function LandingShowcase() {
   const revealRef = useRef<HTMLDivElement | null>(null);
 
@@ -14,6 +25,32 @@ export function LandingShowcase() {
       "radial-gradient(520px circle at 50% 40%, rgba(109, 40, 217, 0.30), rgba(14, 165, 233, 0.18) 30%, rgba(2, 6, 23, 0.0) 72%)",
     []
   );
+
+  const particles = useMemo<TinyParticle[]>(() => {
+    const symbols: Array<"0" | "1" | "$"> = ["0", "1", "$"];
+    const seeded = Array.from({ length: 130 }, (_, index) => {
+      const seed = index + 1;
+      const left = (seed * 53) % 100;
+      const top = (seed * 37) % 100;
+      const opacity = 0.13 + ((seed * 29) % 18) / 100;
+      const size = 9 + ((seed * 17) % 4);
+      const delay = ((seed * 11) % 100) / 10;
+      const duration = 9 + ((seed * 19) % 8);
+
+      return {
+        id: `particle-${seed}`,
+        glyph: symbols[seed % symbols.length],
+        left,
+        top,
+        opacity,
+        size,
+        delay,
+        duration,
+      };
+    });
+
+    return seeded;
+  }, []);
 
   return (
     <section className="relative px-4 py-20 sm:px-6">
@@ -85,6 +122,30 @@ export function LandingShowcase() {
           </div>
 
           <div className="absolute inset-0 bg-[radial-gradient(1000px_circle_at_15%_0%,rgba(8,47,73,0.55),transparent_50%),linear-gradient(170deg,rgba(2,6,23,0.2),rgba(2,6,23,0.9)_65%)]" />
+
+          <div className="absolute inset-0 z-[2] overflow-hidden pointer-events-none">
+            {particles.map((particle) => (
+              <span
+                key={particle.id}
+                className="absolute select-none font-mono text-cyan-100/80 transition-all duration-200 ease-out"
+                style={
+                  {
+                    left: `${particle.left}%`,
+                    top: `${particle.top}%`,
+                    fontSize: `${particle.size}px`,
+                    opacity: particle.opacity,
+                    transform: "translate(-50%, -50%)",
+                    animation: `hqParticleFloat ${particle.duration}s ease-in-out ${particle.delay}s infinite`,
+                    textShadow:
+                      "0 0 calc(1px + (var(--hover, 0) * 8px)) rgba(125, 211, 252, calc(0.16 + (var(--hover, 0) * 0.65))), 0 0 calc(3px + (var(--hover, 0) * 16px)) rgba(217, 70, 239, calc(0.12 + (var(--hover, 0) * 0.45)))",
+                    color: particle.glyph === "$" ? "rgba(244, 114, 182, 0.9)" : "rgba(207, 250, 254, 0.9)",
+                  } as React.CSSProperties
+                }
+              >
+                {particle.glyph}
+              </span>
+            ))}
+          </div>
 
           <div
             ref={revealRef}
