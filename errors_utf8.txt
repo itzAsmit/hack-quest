@@ -1,0 +1,3 @@
+﻿src/components/layout/Sidebar.tsx(72,21): error TS2322: Type 'string' is not assignable to type 'never'.
+src/components/shared/GlassPanel.tsx(19,6): error TS2745: This JSX tag's 'children' prop expects type 'never' which requires multiple children, but only a single child was provided.
+src/components/shared/GlassPanel.tsx(20,7): error TS2322: Type 'string' is not assignable to type 'never'.

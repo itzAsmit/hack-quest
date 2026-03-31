@@ -4,8 +4,9 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
   LayoutDashboard, Image, Users, Wallet, Settings, Activity,
-  Calendar, Shield, ChevronLeft, ChevronRight
+  Calendar, Shield, ChevronLeft, ChevronRight, type LucideIcon
 } from "lucide-react";
+
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 
@@ -20,9 +21,11 @@ interface SidebarProps {
   title: string;
 }
 
-const iconMap: Record<string, React.ElementType> = {
+const iconMap: Record<string, LucideIcon> = {
   LayoutDashboard, Image, Users, Wallet, Settings, Activity, Calendar, Shield,
 };
+
+
 
 export function Sidebar({ links, title }: SidebarProps) {
   const pathname = usePathname();
