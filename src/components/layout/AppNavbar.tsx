@@ -19,7 +19,7 @@ export function AppNavbar() {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [isCompact, setIsCompact] = useState(false);
-  const [isRaised, setIsRaised] = useState(false);
+  const [scrollDirection, setScrollDirection] = useState<"up" | "down" | "idle">("idle");
   const lastScrollY = useRef(0);
 
   useEffect(() => {
@@ -29,11 +29,11 @@ export function AppNavbar() {
 
       if (currentY <= 16) {
         setIsCompact(false);
-        setIsRaised(false);
+        setScrollDirection("idle");
       } else {
         setIsCompact(true);
-        if (delta > 1) setIsRaised(true);
-        if (delta < -1) setIsRaised(false);
+        if (delta > 1) setScrollDirection("down");
+        if (delta < -1) setScrollDirection("up");
       }
 
       lastScrollY.current = currentY;
@@ -57,11 +57,12 @@ export function AppNavbar() {
 
   return (
     <motion.div
-      className="fixed left-1/2 z-50 w-[calc(100%-2rem)] max-w-[1550px]"
+      className="fixed left-1/2 z-50 w-[calc(100%-2rem)] max-w-[1550px] origin-top"
       animate={{
         x: "-50%",
-        top: isCompact ? 8 : 16,
-        y: isRaised ? -10 : 0,
+        top: isCompact ? 10 : 16,
+        y: scrollDirection === "down" ? -4 : 0,
+        scaleX: scrollDirection === "up" && isCompact ? 0.965 : 1,
       }}
       transition={{ duration: 0.28, ease: "easeOut" }}
     >
