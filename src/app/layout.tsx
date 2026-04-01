@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Space_Grotesk, Inter } from "next/font/google";
+import { Space_Grotesk, Inter, Beau_Rivage } from "next/font/google";
 import { ToastProvider } from "@/components/shared/Toast";
 import { ThemeProvider } from "@/components/shared/ThemeProvider";
 import { AppNavbar } from "@/components/layout/AppNavbar";
@@ -20,6 +20,13 @@ const inter = Inter({
   weight: ["300", "400", "500", "600", "700"],
 });
 
+const beauRivage = Beau_Rivage({
+  subsets: ["latin"],
+  variable: "--font-cursive",
+  weight: ["400"],
+  display: "swap",
+});
+
 export const metadata: Metadata = {
   title: "HackQuest — Gamified Hackathon Platform",
   description:
@@ -33,6 +40,9 @@ export const metadata: Metadata = {
   },
 };
 
+import { UnifiedNavbar } from "@/components/layout/UnifiedNavbar";
+import { LoadingProvider } from "@/components/shared/LoadingProvider";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -41,7 +51,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark" suppressHydrationWarning>
       <body
-        className={`${spaceGrotesk.variable} ${inter.variable} font-body antialiased bg-hq-bg-primary text-hq-text-primary`}
+        className={`${spaceGrotesk.variable} ${inter.variable} ${beauRivage.variable} font-heading antialiased bg-black text-white selection:bg-[#9D50FF]/30`}
       >
         <ThemeProvider
           attribute="class"
@@ -49,12 +59,14 @@ export default function RootLayout({
           enableSystem={false}
           disableTransitionOnChange
         >
-          <ToastProvider>
-            {/* Global dotted-surface background */}
-            <DottedSurfaceWrapper />
-            <AppNavbar />
-            {children}
-          </ToastProvider>
+          <LoadingProvider>
+            <ToastProvider>
+              {/* Global dotted-surface background */}
+              <DottedSurfaceWrapper />
+              <UnifiedNavbar />
+              {children}
+            </ToastProvider>
+          </LoadingProvider>
         </ThemeProvider>
       </body>
     </html>

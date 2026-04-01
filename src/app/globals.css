@@ -6,24 +6,28 @@
 @import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap');
 
 :root {
-  --bg-primary: #05070D;
-  --bg-card: rgba(12, 16, 28, 0.8);
+  --bg-primary: #000000;
+  --bg-secondary: #050505;
+  --bg-card: rgba(255, 255, 255, 0.03);
   --border-light: rgba(255, 255, 255, 0.08);
-  --text-primary: rgba(255, 255, 255, 0.92);
-  --text-secondary: rgba(255, 255, 255, 0.60);
-  --accent-glow: #6EA8FF;
+  --text-primary: #FFFFFF;
+  --text-secondary: rgba(255, 255, 255, 0.6);
+  --accent-purple: #9D50FF;
+  --accent-pink: #E050FF;
 }
 
 html {
   scroll-behavior: smooth;
+  background-color: #000;
 }
 
 body {
   background: var(--bg-primary);
   color: var(--text-primary);
-  font-family: 'Inter', sans-serif;
+  font-family: var(--font-heading), 'Space Grotesk', sans-serif;
   overflow-x: hidden;
-  background-image: radial-gradient(circle at 50% 0%, rgba(110, 168, 255, 0.03) 0%, transparent 50%);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 @keyframes hqParticleFloat {

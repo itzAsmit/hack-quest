@@ -11,7 +11,7 @@ const APP_NAV_LINKS = [
   { label: "Home", href: "/" },
   { label: "Quest", href: "/events" },
   { label: "Leaderboard", href: "/leaderboard" },
-  { label: "Trading Hall", href: "/trading-hall" },
+  { label: "Trading Hall", href: "/auction" },
   { label: "NFT Marketplace", href: "/showplace" },
 ];
 
@@ -53,7 +53,7 @@ export function AppNavbar() {
     return pathname === href || pathname?.startsWith(href + "/");
   };
 
-  if (pathname?.startsWith("/dashboard")) return null;
+  if (pathname?.startsWith("/dashboard") || pathname === "/") return null;
 
   return (
     <motion.div
