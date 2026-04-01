@@ -3,7 +3,6 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { ArrowRight, Coins, Wallet, Zap } from "lucide-react";
-import { DottedSurface } from "@/components/ui/dotted-surface";
 import { Card, CardCanvas } from "@/components/ui/animated-glow-card";
 
 export function HeroSection() {
@@ -16,8 +15,6 @@ export function HeroSection() {
 
   return (
     <section className="relative isolate flex min-h-[92vh] items-center overflow-hidden px-4 pb-16 pt-28 sm:px-6">
-      <DottedSurface className="-z-10 opacity-90" />
-
       <div className="relative z-10 mx-auto grid w-full max-w-6xl items-center gap-10 lg:grid-cols-[1.05fr_0.95fr]">
         <div>
           <motion.span
