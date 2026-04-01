@@ -15,6 +15,12 @@ export function ScrollSequenceBackground() {
   const frameSrc = useMemo(() => getFramePath(frame), [frame]);
 
   useEffect(() => {
+    // Preload all sequence frames to avoid flicker while scrolling.
+    for (let i = 1; i <= TOTAL_FRAMES; i++) {
+      const img = new Image();
+      img.src = getFramePath(i);
+    }
+
     const updateFrameFromScroll = () => {
       const scrollMax = Math.max(
         document.documentElement.scrollHeight - window.innerHeight,
@@ -36,14 +42,14 @@ export function ScrollSequenceBackground() {
   }, []);
 
   return (
-    <div className="pointer-events-none fixed inset-0 -z-[3] overflow-hidden">
+    <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
       <img
         src={frameSrc}
         alt=""
         aria-hidden="true"
         className="h-full w-full object-cover"
       />
-      <div className="absolute inset-0 bg-[#02040a]/58" />
+      <div className="absolute inset-0 bg-[#02040a]/30" />
     </div>
   );
 }

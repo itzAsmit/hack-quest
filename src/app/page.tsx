@@ -5,9 +5,9 @@ import { ScrollSequenceBackground } from "@/components/landing/ScrollSequenceBac
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen bg-[#05070D]">
+    <div className="relative min-h-screen bg-[#05070D]">
       <ScrollSequenceBackground />
-      <main>
+      <main className="relative z-10">
         <HeroSection />
         <ActivityTicker />
         <LandingFeatureGrid />
