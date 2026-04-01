@@ -244,7 +244,7 @@ function FeaturesSection() {
                 <div className="w-3 h-3 rounded-full bg-yellow-500/20" />
                 <div className="w-3 h-3 rounded-full bg-green-500/20" />
               </div>
-              <p><span className="text-[#E050FF]">import</span> {'{'} wallet {'}'} <span className="text-[#E050FF]">import</span> from '@hackquest/sdk'</p>
+              <p><span className="text-[#E050FF]">import</span> {"{ wallet }"} <span className="text-[#E050FF]">from</span> {"'@hackquest/sdk'"}</p>
               <br/>
               <p><span className="text-[#E050FF]">const</span> balance = <span className="text-[#9D50FF]">await</span> wallet.getHacks()</p>
               <p><span className="text-[#E050FF]">await</span> wallet.withdrawToAlgo(balance)</p>
