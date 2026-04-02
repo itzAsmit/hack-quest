@@ -6,14 +6,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap');
 
 :root {
-  --bg-primary: #000000;
-  --bg-secondary: #050505;
+  --bg-primary: #02040A;
+  --bg-secondary: #080B14;
   --bg-card: rgba(255, 255, 255, 0.03);
   --border-light: rgba(255, 255, 255, 0.08);
-  --text-primary: #FFFFFF;
-  --text-secondary: rgba(255, 255, 255, 0.6);
-  --accent-purple: #9D50FF;
-  --accent-pink: #E050FF;
+  --text-primary: #F8FAFC;
+  --text-secondary: #94A3B8;
+  --accent-purple: #6366F1; /* Indigo 500 */
+  --accent-pink: #A855F7;   /* Violet 500 */
 }
 
 html {
@@ -61,7 +61,7 @@ body {
 
 @layer utilities {
   .text-glow {
-    text-shadow: 0 0 20px rgba(110, 168, 255, 0.4);
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
   }
 }
 
@@ -189,7 +189,7 @@ body {
 
   /* Gradient text */
   .gradient-text {
-    background: linear-gradient(135deg, #6D28D9, #D946EF);
+    background: linear-gradient(135deg, #818CF8, #C084FC);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -197,6 +197,13 @@ body {
 
   .gradient-text-gold {
     background: linear-gradient(135deg, #F59E0B, #FBBF24);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .gradient-text-silver {
+    background: linear-gradient(135deg, #94A3B8, #CBD5E1);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -229,8 +236,8 @@ body {
   }
 
   .glass-panel-hover:hover {
-    border-color: rgba(110, 168, 255, 0.2);
-    box-shadow: 0 0 30px rgba(110, 168, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 0 30px rgba(255, 255, 255, 0.05);
     transform: translateY(-2px);
   }
 
@@ -243,8 +250,8 @@ body {
   }
 
   .glass-card:hover {
-    border: 1px solid rgba(110, 168, 255, 0.2);
-    box-shadow: 0 0 30px rgba(110, 168, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 0 30px rgba(255, 255, 255, 0.05);
   }
 
   /* Primary button */
@@ -257,14 +264,14 @@ body {
     font-size: 0.875rem;
     font-weight: 600;
     color: white;
-    background: linear-gradient(135deg, #6D28D9, #A855F7);
+    background: linear-gradient(135deg, #4F46E5, #7C3AED);
     transition: all 0.2s ease;
-    border: 1px solid rgba(168, 85, 247, 0.3);
+    border: 1px solid rgba(124, 58, 237, 0.3);
   }
 
   .btn-primary:hover {
-    background: linear-gradient(135deg, #7C3AED, #C084FC);
-    box-shadow: 0 0 20px rgba(124, 58, 237, 0.4), 0 0 60px rgba(124, 58, 237, 0.15);
+    background: linear-gradient(135deg, #6366F1, #8B5CF6);
+    box-shadow: 0 0 20px rgba(99, 102, 241, 0.4), 0 0 60px rgba(99, 102, 241, 0.15);
   }
 
   /* Quest engine tonal card */

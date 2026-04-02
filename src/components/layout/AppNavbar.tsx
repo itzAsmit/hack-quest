@@ -9,7 +9,7 @@ import GlassSurface from "../ui/GlassSurface";
 
 const APP_NAV_LINKS = [
   { label: "Home", href: "/" },
-  { label: "Quest", href: "/events" },
+  { label: "Quests", href: "/events" },
   { label: "Leaderboard", href: "/leaderboard" },
   { label: "Trading Hall", href: "/auction" },
   { label: "NFT Marketplace", href: "/showplace" },
@@ -108,9 +108,6 @@ export function AppNavbar() {
                   <line x1="2" y1="8.5" x2="12" y2="12" />
                 </svg>
               </div>
-              <span className="hidden sm:block font-heading text-base font-black uppercase tracking-tight text-white">
-                HACKQUEST
-              </span>
             </Link>
           </div>
 
@@ -119,9 +116,8 @@ export function AppNavbar() {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`relative py-1 transition-colors ${
-                  isActive(link.href) ? "text-white" : "hover:text-white"
-                }`}
+                className={`relative py-1 transition-colors ${isActive(link.href) ? "text-white" : "hover:text-white"
+                  }`}
               >
                 {link.label}
                 {isActive(link.href) && (
@@ -165,11 +161,10 @@ export function AppNavbar() {
                     key={link.href}
                     href={link.href}
                     onClick={() => setMobileOpen(false)}
-                    className={`block px-4 py-3 rounded-xl text-sm font-medium transition-all ${
-                      isActive(link.href)
+                    className={`block px-4 py-3 rounded-xl text-sm font-medium transition-all ${isActive(link.href)
                         ? "text-white bg-white/10"
                         : "text-white/70 hover:text-white hover:bg-white/5"
-                    }`}
+                      }`}
                   >
                     {link.label}
                   </Link>

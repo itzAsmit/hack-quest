@@ -154,7 +154,7 @@ export function UnifiedNavbar() {
                       onClick={() => setProfileDropdown(!profileDropdown)}
                       className="flex items-center gap-2.5 bg-white/10 hover:bg-white/15 border border-white/10 px-3 py-1.5 rounded-full transition-all"
                     >
-                      <div className="w-6 h-6 rounded-full bg-gradient-to-tr from-[#9D50FF] to-[#E050FF] flex items-center justify-center text-[10px] font-bold text-white uppercase overflow-hidden ring-1 ring-white/20">
+                      <div className="w-6 h-6 rounded-full bg-gradient-to-tr from-indigo-500 to-violet-500 flex items-center justify-center text-[10px] font-bold text-white uppercase overflow-hidden ring-1 ring-white/20">
                          {user.avatar_url ? (
                            <img src={user.avatar_url} alt="" className="w-full h-full object-cover" />
                          ) : (
@@ -235,7 +235,7 @@ export function UnifiedNavbar() {
                         )}
                       >
                         {link.label}
-                        {isActive(link.href) && <Zap size={12} className="text-[#9D50FF]" />}
+                        {isActive(link.href) && <Zap size={12} className="text-white" />}
                       </Link>
                     ))}
                     {!user && (

@@ -1,12 +1,18 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { createClient } from "@/lib/supabase/client";
-import { Image as ImageIcon, Sparkles, Lock, Check, Loader2 } from "lucide-react";
+import { 
+  Sparkles, Search, Filter, Rocket, Trophy, Clock, 
+  Gamepad2, Users, ArrowRight, Star, Loader2, Play,
+  ShoppingBag, Shield, HandCoins, Info, ChevronLeft
+} from "lucide-react";
+import { Card, CardCanvas } from "@/components/ui/animated-glow-card";
 import { NeonBadge } from "@/components/shared/NeonBadge";
 import { GlassPanel } from "@/components/shared/GlassPanel";
-import { formatNumber } from "@/lib/utils";
+import { formatNumber, cn } from "@/lib/utils";
+import Link from "next/link";
 
 interface NFTDefinition {
   id: string;
@@ -26,23 +32,12 @@ interface OwnedNFT {
   users: { username: string; display_name: string } | null;
 }
 
-const RARITY_FILTER = ["All", "common", "rare", "epic", "legendary", "mythic"] as const;
-const TYPE_FILTER = ["All", "basic", "premium"] as const;
-
-const rarityBorderColors: Record<string, string> = {
-  common: "border-hq-rarity-common/40 hover:border-hq-rarity-common/70",
-  rare: "border-hq-rarity-rare/40 hover:border-hq-rarity-rare/70",
-  epic: "border-hq-rarity-epic/40 hover:border-hq-rarity-epic/70",
-  legendary: "border-hq-rarity-legendary/40 hover:border-hq-rarity-legendary/70",
-  mythic: "border-hq-rarity-mythic/40 hover:border-hq-rarity-mythic/70",
-};
-
-const rarityGlowColors: Record<string, string> = {
-  common: "shadow-[0_0_12px_rgba(148,163,184,0.15)]",
-  rare: "shadow-[0_0_12px_rgba(59,130,246,0.2)]",
-  epic: "shadow-[0_0_12px_rgba(168,85,247,0.2)]",
-  legendary: "shadow-[0_0_15px_rgba(245,158,11,0.25)]",
-  mythic: "shadow-[0_0_15px_rgba(239,68,68,0.25)]",
+const RARITY_MAP: Record<string, { label: string; color: string; badge: string }> = {
+  common: { label: "Common", color: "#94a3b8", badge: "slate" },
+  rare: { label: "Rare", color: "#3b82f6", badge: "purple" },
+  epic: { label: "Epic", color: "#a855f7", badge: "purple" },
+  legendary: { label: "Legendary", color: "#f59e0b", badge: "gold" },
+  mythic: { label: "Mythic", color: "#ef4444", badge: "danger" },
 };
 
 export default function ShowplacePage() {
@@ -50,9 +45,8 @@ export default function ShowplacePage() {
   const [owned, setOwned] = useState<OwnedNFT[]>([]);
   const [loading, setLoading] = useState(true);
   const [rarityFilter, setRarityFilter] = useState("All");
-  const [typeFilter, setTypeFilter] = useState("All");
+  const [search, setSearch] = useState("");
   const [userId, setUserId] = useState<string | null>(null);
-  const [claimingId, setClaimingId] = useState<string | null>(null);
   const [userXp, setUserXp] = useState(0);
   const supabase = createClient();
 
@@ -87,8 +81,8 @@ export default function ShowplacePage() {
   }, []);
 
   const filtered = nfts.filter((nft) => {
-    if (rarityFilter !== "All" && nft.rarity_color !== rarityFilter) return false;
-    if (typeFilter !== "All" && nft.nft_type !== typeFilter) return false;
+    if (rarityFilter !== "All" && nft.rarity_color !== rarityFilter.toLowerCase()) return false;
+    if (search && !nft.name.toLowerCase().includes(search.toLowerCase())) return false;
     return true;
   });
 
@@ -96,187 +90,158 @@ export default function ShowplacePage() {
     return owned.find((o) => o.nft_def_id === nftDefId);
   };
 
-  const handleClaim = async (nft: NFTDefinition) => {
-    if (!userId || !nft.xp_cost) return;
-    if (userXp < nft.xp_cost) return;
-    setClaimingId(nft.id);
-
-    try {
-      const res = await fetch("/api/nft/redeem", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ nft_def_id: nft.id }),
-      });
-
-      if (res.ok) {
-        setUserXp((prev) => prev - nft.xp_cost!);
-        setOwned((prev) => [...prev, { nft_def_id: nft.id, owner_id: userId, users: null }]);
-      } else {
-        const data = await res.json();
-        console.error("Claim failed:", data.error);
-      }
-    } catch (err) {
-      console.error("Claim failed:", err);
-    }
-    setClaimingId(null);
-  };
-
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12">
-      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="mb-8">
-        <div className="flex items-center gap-2 mb-2">
-          <Sparkles className="w-5 h-5 text-hq-accent-glow" />
-          <span className="text-sm font-medium text-hq-accent-glow uppercase tracking-wider">
-            Collection
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }} 
+        animate={{ opacity: 1, y: 0 }} 
+        className="mb-12"
+      >
+        <div className="flex items-center gap-2 mb-3">
+          <div className="w-10 h-px bg-hq-accent-purple/50" />
+          <span className="text-sm font-bold text-hq-accent-glow uppercase tracking-[0.2em]">
+            Artifact Collection
           </span>
+          <ShoppingBag className="w-3.5 h-3.5 text-hq-accent-glow animate-pulse" />
         </div>
-        <h1 className="font-heading font-bold text-3xl sm:text-4xl text-hq-text-primary">
-          NFT Showplace
-        </h1>
-        <p className="text-hq-text-secondary mt-1">
-          Browse and claim NFTs with your earned XP.
-        </p>
-        {userId && (
-          <p className="text-sm mt-2">
-            Your XP: <span className="gradient-text-gold font-semibold">{formatNumber(userXp)}</span>
-          </p>
-        )}
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
+          <div>
+            <h1 className="font-heading font-black text-4xl sm:text-6xl text-white uppercase tracking-tighter">
+              NFT <span className="gradient-text">Showplace</span>
+            </h1>
+            <p className="max-w-xl mt-4 text-white/50 text-base sm:text-lg">
+              Collect and showcase rare digital assets. Claim basic tier artifacts using your earned XP or discover legendary treasures in the auction hall.
+            </p>
+          </div>
+          <div className="flex flex-col gap-4 w-full lg:w-96">
+            <div className="relative">
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-white/30" />
+              <input
+                type="text"
+                placeholder="Search collection..."
+                className="w-full bg-white/[0.03] border border-white/10 rounded-2xl py-3.5 pl-11 pr-4 text-sm focus:outline-none focus:ring-2 focus:ring-white/10 transition-all font-medium"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+              />
+            </div>
+            {userId && (
+              <GlassPanel className="px-4 py-3 flex items-center justify-between border-white/10">
+                 <span className="text-[10px] font-black uppercase tracking-widest text-white/30">Your XP Balance</span>
+                 <span className="text-sm font-black gradient-text-gold">{formatNumber(userXp)} XP</span>
+              </GlassPanel>
+            )}
+          </div>
+        </div>
       </motion.div>
 
-      <div className="flex flex-col lg:flex-row gap-8">
-        {/* Sidebar filters */}
-        <div className="lg:w-56 flex-shrink-0">
-          <GlassPanel className="p-4 sticky top-24">
-            <h3 className="text-xs font-medium text-hq-text-muted uppercase tracking-wider mb-3">
-              Rarity
-            </h3>
-            <div className="space-y-1 mb-5">
-              {RARITY_FILTER.map((r) => (
-                <button
-                  key={r}
-                  onClick={() => setRarityFilter(r)}
-                  className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-all ${
-                    rarityFilter === r
-                      ? "bg-hq-accent-purple/15 text-hq-accent-glow"
-                      : "text-hq-text-secondary hover:bg-white/[0.04] hover:text-hq-text-primary"
-                  }`}
-                >
-                  {r === "All" ? "All" : r.charAt(0).toUpperCase() + r.slice(1)}
-                </button>
-              ))}
-            </div>
-            <h3 className="text-xs font-medium text-hq-text-muted uppercase tracking-wider mb-3">
-              Type
-            </h3>
-            <div className="space-y-1">
-              {TYPE_FILTER.map((t) => (
-                <button
-                  key={t}
-                  onClick={() => setTypeFilter(t)}
-                  className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-all ${
-                    typeFilter === t
-                      ? "bg-hq-accent-purple/15 text-hq-accent-glow"
-                      : "text-hq-text-secondary hover:bg-white/[0.04] hover:text-hq-text-primary"
-                  }`}
-                >
-                  {t === "All" ? "All" : t.charAt(0).toUpperCase() + t.slice(1)}
-                </button>
-              ))}
-            </div>
-          </GlassPanel>
-        </div>
-
-        {/* Grid */}
-        <div className="flex-1">
-          {loading ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-              {Array.from({ length: 6 }).map((_, i) => (
-                <div key={i} className="h-64 bg-white/[0.03] rounded-2xl animate-pulse" />
-              ))}
-            </div>
-          ) : filtered.length === 0 ? (
-            <div className="text-center py-20">
-              <ImageIcon className="w-12 h-12 mx-auto mb-3 text-hq-text-muted opacity-50" />
-              <p className="text-hq-text-muted">No NFTs found.</p>
-            </div>
-          ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-              {filtered.map((nft, i) => {
-                const owner = getOwner(nft.id);
-                const isOwnedByMe = owner?.owner_id === userId;
-                const isOwnedByOther = owner && !isOwnedByMe;
-                const canClaim = !owner && nft.nft_type === "basic" && nft.xp_cost && userId;
-                const hasEnoughXp = nft.xp_cost ? userXp >= nft.xp_cost : false;
-
-                return (
-                  <motion.div
-                    key={nft.id}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: i * 0.03 }}
-                    className={`glass-panel-hover overflow-hidden border-2 transition-all ${
-                      rarityBorderColors[nft.rarity_color] || "border-white/10"
-                    } ${rarityGlowColors[nft.rarity_color] || ""}`}
-                  >
-                    <div className="relative h-40 bg-hq-bg-tertiary overflow-hidden">
-                      <img src={nft.image_url} alt={nft.name} className="w-full h-full object-cover" />
-                      <div className="absolute top-2 left-2">
-                        <NeonBadge variant={nft.nft_type === "premium" ? "gold" : "purple"} size="sm">
-                          {nft.nft_type.toUpperCase()}
-                        </NeonBadge>
-                      </div>
-                    </div>
-                    <div className="p-4">
-                      <h3 className="font-heading font-semibold text-sm text-hq-text-primary">{nft.name}</h3>
-                      {nft.description && (
-                        <p className="text-xs text-hq-text-muted mt-1 line-clamp-2">{nft.description}</p>
-                      )}
-                      <div className="mt-3">
-                        {isOwnedByMe && (
-                          <div className="flex items-center gap-1.5 text-hq-success text-xs font-medium">
-                            <Check className="w-3.5 h-3.5" />
-                            Claimed by YOU
-                          </div>
-                        )}
-                        {isOwnedByOther && (
-                          <div className="flex items-center gap-1.5 text-hq-text-muted text-xs">
-                            <Lock className="w-3.5 h-3.5" />
-                            Claimed by {owner.users?.display_name || "someone"}
-                          </div>
-                        )}
-                        {canClaim && (
-                          <button
-                            onClick={() => handleClaim(nft)}
-                            disabled={!hasEnoughXp || claimingId === nft.id}
-                            className={`w-full mt-1 py-2 rounded-lg text-xs font-medium flex items-center justify-center gap-1.5 transition-all ${
-                              hasEnoughXp
-                                ? "btn-primary"
-                                : "bg-hq-bg-tertiary text-hq-text-muted border border-white/[0.06] cursor-not-allowed"
-                            }`}
-                          >
-                            {claimingId === nft.id ? (
-                              <Loader2 className="w-3.5 h-3.5 animate-spin" />
-                            ) : hasEnoughXp ? (
-                              <>Claim for {formatNumber(nft.xp_cost!)} XP</>
-                            ) : (
-                              <>Need {formatNumber(nft.xp_cost!)} XP</>
-                            )}
-                          </button>
-                        )}
-                        {nft.nft_type === "premium" && !owner && (
-                          <div className="text-xs text-hq-gold mt-1 text-center">
-                            Available at Auction
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                  </motion.div>
-                );
-              })}
-            </div>
-          )}
-        </div>
+      {/* Rarity Selector */}
+      <div className="flex items-center gap-2 mb-10 overflow-x-auto pb-4 no-scrollbar">
+         {["All", "Common", "Rare", "Epic", "Legendary", "Mythic"].map((r) => (
+           <button
+             key={r}
+             onClick={() => setRarityFilter(r)}
+             className={cn(
+                "px-5 py-2.5 rounded-full border transition-all text-[11px] font-black uppercase tracking-widest whitespace-nowrap",
+                rarityFilter === r
+                  ? "bg-white text-black border-white"
+                  : "bg-white/[0.03] border-white/10 text-white/50 hover:bg-white/5 hover:text-white"
+             )}
+           >
+             {r}
+           </button>
+         ))}
       </div>
+
+      {/* NFT Grid */}
+      {loading ? (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          {Array.from({ length: 8 }).map((_, i) => (
+            <div key={i} className="h-80 bg-white/5 rounded-3xl animate-pulse" />
+          ))}
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+           <AnimatePresence mode="popLayout">
+              {filtered.map((nft, i) => {
+                 const owner = getOwner(nft.id);
+                 const isOwnedByMe = owner?.owner_id === userId;
+                 const rarity = RARITY_MAP[nft.rarity_color.toLowerCase()] || RARITY_MAP.common;
+
+                 return (
+                   <motion.div
+                     layout
+                     key={nft.id}
+                     initial={{ opacity: 0, scale: 0.95 }}
+                     animate={{ opacity: 1, scale: 1 }}
+                     exit={{ opacity: 0, scale: 0.95 }}
+                     transition={{ duration: 0.3, delay: i * 0.05 }}
+                   >
+                     <CardCanvas className="h-full">
+                        <Card className="p-0 h-full overflow-hidden flex flex-col group hover:border-white/20 transition-all">
+                           <div className="aspect-square relative overflow-hidden bg-white/5">
+                              <img src={nft.image_url} alt={nft.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                              <div className="absolute top-4 left-4 flex flex-col gap-2">
+                                <NeonBadge variant={rarity.badge as any} size="sm" pulse={nft.rarity_color.toLowerCase() === 'mythic'}>
+                                  {rarity.label.toUpperCase()}
+                                </NeonBadge>
+                                <NeonBadge variant="slate" size="sm" className="bg-black/60 backdrop-blur-md opacity-0 group-hover:opacity-100 transition-opacity">
+                                  {nft.nft_type.toUpperCase()}
+                                </NeonBadge>
+                              </div>
+                              {owner && (
+                                <div className="absolute inset-0 bg-black/40 backdrop-blur-[2px] flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                                   <div className="bg-white/10 border border-white/20 px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest text-white">
+                                      {isOwnedByMe ? "OWNED BY YOU" : `OWNED BY ${owner.users?.display_name || "MEMBER"}`}
+                                   </div>
+                                </div>
+                              )}
+                           </div>
+                           <div className="p-5 flex-1 flex flex-col">
+                              <h3 className="font-heading font-black text-lg text-white group-hover:text-hq-accent-glow transition-colors mb-2 uppercase tracking-tighter">
+                                {nft.name}
+                              </h3>
+                              <p className="text-[10px] text-white/40 line-clamp-2 mb-6 leading-relaxed flex-1">
+                                {nft.description || "Experimental digital artifact recovered from system archives. Highly valuable property."}
+                              </p>
+
+                              <div className="mt-auto pt-4 border-t border-white/[0.05] flex items-end justify-between">
+                                 <div>
+                                   <p className="text-[9px] font-black uppercase tracking-widest text-white/20 mb-0.5">ESTIMATED VALUE</p>
+                                   <p className="text-xl font-black text-white">{nft.xp_cost ? formatNumber(nft.xp_cost) : "PRIVATE"} <span className="text-xs text-white/40 font-medium">XP</span></p>
+                                 </div>
+                                 <div className="flex flex-col items-end gap-1.5">
+                                   {nft.nft_type === 'premium' ? (
+                                      <Link href="/auction" className="text-[10px] font-black uppercase tracking-widest text-hq-gold hover:underline">AUCTION ONLY</Link>
+                                   ) : (
+                                      <button className={cn(
+                                        "px-4 py-2 rounded-lg text-[10px] font-black uppercase tracking-[0.1em] transition-all",
+                                        owner ? "bg-white/5 text-white/20 cursor-not-allowed" : "bg-white text-black hover:bg-white/90"
+                                      )}>
+                                        {owner ? "CLAIMED" : "REDEEM"}
+                                      </button>
+                                   )}
+                                 </div>
+                              </div>
+                           </div>
+                        </Card>
+                     </CardCanvas>
+                   </motion.div>
+                 );
+              })}
+           </AnimatePresence>
+        </div>
+      )}
+
+      {!loading && filtered.length === 0 && (
+        <div className="text-center py-32 bg-white/[0.02] rounded-[40px] border border-dashed border-white/10">
+          <Shield className="w-16 h-16 mx-auto text-white/10 mb-4" />
+          <h3 className="text-xl font-bold text-white mb-2">Registry Empty</h3>
+          <p className="text-white/40 text-sm">No artifacts match your selected rarity or search query.</p>
+          <button onClick={() => { setRarityFilter("All"); setSearch(""); }} className="mt-6 text-hq-accent-glow font-bold uppercase tracking-widest text-xs hover:underline">
+            Reset Filters
+          </button>
+        </div>
+      )}
     </div>
   );
 }

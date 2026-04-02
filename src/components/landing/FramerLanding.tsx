@@ -10,7 +10,7 @@ function HeroSection() {
   return (
     <section className="relative overflow-hidden flex flex-col items-center px-4 pt-4 pb-20">
       {/* Background Glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#9D50FF]/30 blur-[120px] rounded-full pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-indigo-500/10 blur-[130px] rounded-full pointer-events-none" />
       
       {/* Grid pattern */}
       <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] pointer-events-none" />
@@ -24,8 +24,8 @@ function HeroSection() {
         >
           {/* Badge */}
           <div className="flex items-center gap-2 bg-black border border-white/10 rounded-full pl-1 pr-3 py-1 mb-8">
-            <span className="bg-[#9D50FF] text-white text-[10px] uppercase font-bold px-2 py-0.5 rounded-full flex items-center gap-1">
-              <Zap className="w-3 h-3" /> Rail
+            <span className="bg-gradient-to-r from-indigo-500 to-violet-500 text-white text-[10px] uppercase font-bold px-2 py-0.5 rounded-full flex items-center gap-1">
+              <Zap className="w-3 h-3 fill-white" /> Rail
             </span>
             <span className="text-white/80 text-sm font-medium">HackQuest Reward Rail</span>
           </div>
@@ -33,7 +33,7 @@ function HeroSection() {
           {/* Headline */}
           <h1 className="text-5xl md:text-7xl lg:text-[80px] font-bold text-white tracking-tight leading-[1.05] mb-6 max-w-4xl" style={{ fontFamily: "var(--font-heading)" }}>
             Build with hacks. <br className="hidden md:block" />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-[#E050FF] to-[#9D50FF]">Withdraw in ALGO.</span>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-indigo-300 to-violet-400">Withdraw in ALGO.</span>
           </h1>
 
           {/* Subhead */}
@@ -66,7 +66,7 @@ function HeroSection() {
         transition={{ duration: 0.8, delay: 0.2 }}
         className="relative z-10 w-full max-w-6xl mt-[-5vh] px-4"
       >
-        <div className="rounded-2xl border border-white/10 bg-black/50 backdrop-blur-2xl overflow-hidden shadow-[0_0_100px_rgba(157,80,255,0.15)] ring-1 ring-white/5 mx-auto text-left">
+        <div className="rounded-2xl border border-white/10 bg-black/50 backdrop-blur-2xl overflow-hidden shadow-[0_0_100px_rgba(99,102,241,0.1)] ring-1 ring-white/5 mx-auto text-left">
           {/* MacOS Window Controls */}
           <div className="flex items-center gap-2 px-4 py-3 border-b border-white/10 bg-white/[0.02]">
             <div className="w-3 h-3 rounded-full bg-[#FF5F56]" />
@@ -86,7 +86,7 @@ function HeroSection() {
               </div>
               <div className="space-y-4">
                 <div className="flex items-center gap-3 p-3 rounded-lg bg-white/5 border border-white/10">
-                  <Target className="w-5 h-5 text-[#9D50FF]" />
+                  <Target className="w-5 h-5 text-indigo-400" />
                   <span className="text-white/80 text-sm font-medium">Quest Progress</span>
                 </div>
                 <div className="flex items-center gap-3 p-3 rounded-lg hover:bg-white/5 border border-transparent transition-colors">
@@ -108,7 +108,7 @@ function HeroSection() {
                   {/* Fake Chart */}
                   <div className="w-full h-24 flex items-end gap-2">
                     {[40, 60, 45, 80, 55, 90, 75, 100].map((h, i) => (
-                      <div key={i} className="flex-1 bg-gradient-to-t from-[#9D50FF]/20 to-[#9D50FF] rounded-t-sm" style={{ height: `${h}%` }} />
+                      <div key={i} className="flex-1 bg-gradient-to-t from-indigo-500/10 to-indigo-500/50 rounded-t-sm" style={{ height: `${h}%` }} />
                     ))}
                   </div>
                 </div>
@@ -118,7 +118,7 @@ function HeroSection() {
                     <h4 className="text-3xl font-bold text-white">98%</h4>
                   </div>
                   <div className="w-full h-2 bg-white/10 rounded-full overflow-hidden mt-4">
-                    <div className="w-[98%] h-full bg-[#E050FF]" />
+                    <div className="w-[98%] h-full bg-gradient-to-r from-indigo-500 to-violet-500" />
                   </div>
                 </div>
               </div>
@@ -160,7 +160,7 @@ function FeaturesSection() {
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-20">
           <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-white/70 mb-4">
-            <Sparkles className="h-3.5 w-3.5 text-[#9D50FF]" />
+            <Sparkles className="h-3.5 w-3.5 text-indigo-400" />
             Platform Capability
           </span>
           <h2 className="text-4xl md:text-5xl font-bold text-white tracking-tight mb-4" style={{ fontFamily: "var(--font-heading)" }}>
@@ -174,7 +174,7 @@ function FeaturesSection() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-left">
           {/* Feature Card 1 */}
           <div className="col-span-1 lg:col-span-2 bg-white/[0.02] border border-white/10 rounded-3xl p-8 relative overflow-hidden group">
-            <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-[#9D50FF]/10 blur-[80px] rounded-full group-hover:bg-[#9D50FF]/20 transition-colors" />
+            <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-indigo-500/5 blur-[80px] rounded-full group-hover:bg-indigo-500/10 transition-colors" />
             <div className="relative z-10 h-full flex flex-col justify-between">
               <div className="mb-20">
                 <div className="w-12 h-12 bg-white/10 rounded-2xl flex items-center justify-center mb-6 border border-white/5">
@@ -188,7 +188,7 @@ function FeaturesSection() {
                   <div className="h-2 bg-white/10 rounded-full w-3/4" />
                   <div className="h-2 bg-white/10 rounded-full w-1/2" />
                 </div>
-                <div className="w-10 h-10 rounded-full bg-[#9D50FF] flex items-center justify-center shadow-[0_0_15px_#9D50FF]">
+                <div className="w-10 h-10 rounded-full bg-indigo-600 flex items-center justify-center shadow-[0_0_15px_rgba(99,102,241,0.3)]">
                   <ArrowRight className="w-5 h-5 text-white" />
                 </div>
               </div>
@@ -197,7 +197,7 @@ function FeaturesSection() {
 
           {/* Feature Card 2 */}
           <div className="col-span-1 bg-white/[0.02] border border-white/10 rounded-3xl p-8 relative overflow-hidden group">
-            <div className="absolute -bottom-20 -right-20 w-[300px] h-[300px] bg-[#E050FF]/10 blur-[60px] rounded-full group-hover:bg-[#E050FF]/20 transition-colors" />
+            <div className="absolute -bottom-20 -right-20 w-[300px] h-[300px] bg-violet-500/5 blur-[60px] rounded-full group-hover:bg-violet-500/10 transition-colors" />
             <div className="relative z-10">
                <div className="w-12 h-12 bg-white/10 rounded-2xl flex items-center justify-center mb-6 border border-white/5">
                   <Blocks className="w-6 h-6 text-white" />
@@ -207,8 +207,8 @@ function FeaturesSection() {
             </div>
             {/* Abstract visual */}
             <div className="mt-12 h-32 relative flex items-center justify-center">
-              <div className="w-16 h-16 border border-[#9D50FF] rounded-full animate-ping absolute opacity-20" />
-              <div className="w-16 h-16 bg-gradient-to-tr from-[#9D50FF] to-[#E050FF] rounded-full flex items-center justify-center shadow-[0_0_30px_#9D50FF]">
+              <div className="w-16 h-16 border border-indigo-500/30 rounded-full animate-ping absolute opacity-20" />
+              <div className="w-16 h-16 bg-gradient-to-tr from-indigo-600 to-violet-500 rounded-full flex items-center justify-center shadow-[0_0_30px_rgba(99,102,241,0.2)]">
                 <Blocks className="w-6 h-6 text-white" />
               </div>
             </div>
@@ -244,10 +244,10 @@ function FeaturesSection() {
                 <div className="w-3 h-3 rounded-full bg-yellow-500/20" />
                 <div className="w-3 h-3 rounded-full bg-green-500/20" />
               </div>
-              <p><span className="text-[#E050FF]">import</span> {"{ wallet }"} <span className="text-[#E050FF]">from</span> {"'@hackquest/sdk'"}</p>
+              <p><span className="text-indigo-400">import</span> {"{ wallet }"} <span className="text-indigo-400">from</span> {"'@hackquest/sdk'"}</p>
               <br/>
-              <p><span className="text-[#E050FF]">const</span> balance = <span className="text-[#9D50FF]">await</span> wallet.getHacks()</p>
-              <p><span className="text-[#E050FF]">await</span> wallet.withdrawToAlgo(balance)</p>
+              <p><span className="text-indigo-400">const</span> balance = <span className="text-indigo-300">await</span> wallet.getHacks()</p>
+              <p><span className="text-indigo-400">await</span> wallet.withdrawToAlgo(balance)</p>
             </div>
           </div>
         </div>
@@ -260,10 +260,10 @@ function BottomCTA() {
   return (
     <section className="py-32 px-4 relative overflow-hidden bg-black flex justify-center border-t border-white/10 text-center">
       {/* Glow background */}
-      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full max-w-4xl h-[400px] bg-[#9D50FF]/20 blur-[150px] pointer-events-none" />
+      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full max-w-4xl h-[400px] bg-indigo-500/10 blur-[150px] pointer-events-none" />
       <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none [mask-image:radial-gradient(ellipse_60%_80%_at_50%_100%,#000_40%,transparent_100%)]" />
 
-      <div className="relative z-10 w-full max-w-4xl bg-black/60 backdrop-blur-3xl border border-white/10 rounded-[40px] p-12 md:p-20 text-center shadow-[0_0_50px_rgba(157,80,255,0.1)]">
+      <div className="relative z-10 w-full max-w-4xl bg-black/60 backdrop-blur-3xl border border-white/10 rounded-[40px] p-12 md:p-20 text-center shadow-[0_0_50px_rgba(99,102,241,0.1)]">
         <h2 className="text-4xl md:text-5xl font-bold text-white mb-6" style={{ fontFamily: "var(--font-heading)" }}>
           Ready to launch <br /> your next Hackathon?
         </h2>
@@ -311,7 +311,7 @@ function Footer() {
 
 export function FramerLanding() {
   return (
-    <div className="relative min-h-screen bg-black overflow-x-hidden selection:bg-[#9D50FF]/30 px-0">
+    <div className="relative min-h-screen bg-black overflow-x-hidden selection:bg-indigo-500/30 px-0">
       <HeroSection />
       <LogoTicker />
       <FeaturesSection />

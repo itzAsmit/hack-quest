@@ -13,8 +13,8 @@ interface NeonBadgeProps {
 const variantStyles = {
   purple: "bg-hq-accent-purple/20 text-hq-accent-glow border-hq-accent-purple/40",
   gold: "bg-hq-gold/20 text-hq-gold-light border-hq-gold/40",
-  success: "bg-hq-success/20 text-emerald-400 border-hq-success/40",
-  danger: "bg-hq-danger/20 text-red-400 border-hq-danger/40",
+  success: "bg-white/10 text-white border-white/20",
+  danger: "bg-hq-accent-purple/10 text-hq-accent-purple border-hq-accent-purple/20",
   slate: "bg-white/5 text-hq-text-secondary border-white/10",
 };
 

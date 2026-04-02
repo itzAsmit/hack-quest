@@ -5,45 +5,50 @@ import { Github, Twitter, Instagram, Linkedin, Zap, Heart } from "lucide-react";
 
 export function Footer() {
   return (
-    <footer className="relative border-t border-white/[0.06] bg-hq-bg-secondary/50">
+    <footer className="relative border-t border-white/[0.06] bg-black">
       {/* Top glow */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 h-px bg-gradient-to-r from-transparent via-hq-accent-purple/40 to-transparent" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
       
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16 text-center md:text-left">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Brand */}
-          <div className="lg:col-span-1">
-            <Link href="/" className="flex items-center gap-2 mb-4">
-              <div className="relative w-7 h-7">
-                <div className="absolute inset-0 bg-gradient-to-br from-hq-accent-purple to-hq-accent-violet rounded-lg transform rotate-45" />
-                <div className="absolute inset-[2px] bg-hq-bg-primary rounded-[4px] transform rotate-45" />
-                <span className="absolute inset-0 flex items-center justify-center text-hq-accent-glow font-heading font-bold text-xs">
-                  H
-                </span>
+          <div className="lg:col-span-1 flex flex-col items-center md:items-start">
+            <Link href="/" className="flex items-center gap-2.5 mb-6 group">
+              <div className="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center bg-white/5 transition-transform group-hover:scale-110">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-white">
+                  <polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5 12 2" />
+                  <line x1="12" y1="22" x2="12" y2="12" />
+                  <line x1="22" y1="8.5" x2="12" y2="12" />
+                  <line x1="2" y1="8.5" x2="12" y2="12" />
+                </svg>
               </div>
-              <span className="font-heading font-bold text-lg tracking-tight">
-                <span className="text-hq-text-primary">HACK</span>
-                <span className="gradient-text">QUEST</span>
+              <span className="font-heading font-black text-xl tracking-tighter uppercase text-white">
+                HackQuest
               </span>
             </Link>
-            <p className="text-sm text-hq-text-muted leading-relaxed max-w-xs">
-              The gamified hackathon platform. Earn XP, collect NFTs, and compete globally.
+            <p className="text-sm text-white/40 leading-relaxed max-w-xs">
+              The premier gamified arena for global developers. Forge your 1337 legacy through high-stakes code challenges and exclusive digital collectibles.
             </p>
           </div>
 
           {/* Platform Links */}
-          <div>
-            <h4 className="text-sm font-heading font-semibold text-hq-text-primary mb-4 uppercase tracking-wider">
-              Platform
+          <div className="flex flex-col items-center md:items-start">
+            <h4 className="text-[10px] font-black text-white/20 mb-6 uppercase tracking-[0.3em]">
+              Navigation
             </h4>
-            <ul className="space-y-2.5">
-              {["Events", "Showplace", "Auction", "Leaderboard"].map((item) => (
-                <li key={item}>
+            <ul className="space-y-4">
+              {[
+                { label: "Quest Arena", href: "/events" },
+                { label: "Showplace", href: "/showplace" },
+                { label: "Trading Hall", href: "/auction" },
+                { label: "Hall of Legends", href: "/leaderboard" }
+              ].map((item) => (
+                <li key={item.label}>
                   <Link
-                    href={`/${item.toLowerCase()}`}
-                    className="text-sm text-hq-text-muted hover:text-hq-accent-violet transition-colors duration-200"
+                    href={item.href}
+                    className="text-xs font-bold uppercase tracking-widest text-white/60 hover:text-white transition-colors"
                   >
-                    {item}
+                    {item.label}
                   </Link>
                 </li>
               ))}
@@ -51,23 +56,23 @@ export function Footer() {
           </div>
 
           {/* Players */}
-          <div>
-            <h4 className="text-sm font-heading font-semibold text-hq-text-primary mb-4 uppercase tracking-wider">
-              Players
+          <div className="flex flex-col items-center md:items-start">
+            <h4 className="text-[10px] font-black text-white/20 mb-6 uppercase tracking-[0.3em]">
+              Player Base
             </h4>
-            <ul className="space-y-2.5">
-              {["Login", "Register", "Dashboard", "NFT Collection"].map((item) => (
-                <li key={item}>
+            <ul className="space-y-4">
+              {[
+                { label: "Authentication", href: "/login" },
+                { label: "Join Network", href: "/register" },
+                { label: "Mission Dashboard", href: "/dashboard/overview" },
+                { label: "Asset Vault", href: "/dashboard/nfts" }
+              ].map((item) => (
+                <li key={item.label}>
                   <Link
-                    href={
-                      item === "Login" ? "/login" :
-                      item === "Register" ? "/register" :
-                      item === "Dashboard" ? "/dashboard/overview" :
-                      "/dashboard/nfts"
-                    }
-                    className="text-sm text-hq-text-muted hover:text-hq-accent-violet transition-colors duration-200"
+                    href={item.href}
+                    className="text-xs font-bold uppercase tracking-widest text-white/60 hover:text-white transition-colors"
                   >
-                    {item}
+                    {item.label}
                   </Link>
                 </li>
               ))}
@@ -75,11 +80,11 @@ export function Footer() {
           </div>
 
           {/* Connect */}
-          <div>
-            <h4 className="text-sm font-heading font-semibold text-hq-text-primary mb-4 uppercase tracking-wider">
-              Connect
+          <div className="flex flex-col items-center md:items-start">
+            <h4 className="text-[10px] font-black text-white/20 mb-6 uppercase tracking-[0.3em]">
+              Network
             </h4>
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-4">
               {[
                 { icon: Twitter, href: "#", label: "Twitter" },
                 { icon: Instagram, href: "#", label: "Instagram" },
@@ -90,26 +95,31 @@ export function Footer() {
                   key={label}
                   href={href}
                   aria-label={label}
-                  className="p-2 rounded-lg bg-white/[0.03] border border-white/[0.06] hover:border-hq-accent-purple/40 hover:bg-hq-accent-purple/10 transition-all duration-200"
+                  className="w-10 h-10 flex items-center justify-center rounded-xl bg-white/[0.03] border border-white/10 hover:border-white/20 hover:bg-white/5 transition-all"
                 >
-                  <Icon className="w-4 h-4 text-hq-text-muted" />
+                  <Icon className="w-4 h-4 text-white/60" />
                 </a>
               ))}
+            </div>
+            <div className="mt-8 flex items-center gap-3">
+               <div className="w-2 h-2 rounded-full bg-[#2ECC71] animate-pulse" />
+               <span className="text-[10px] font-black uppercase tracking-widest text-[#2ECC71]">Network Core Stable</span>
             </div>
           </div>
         </div>
 
         {/* Bottom bar */}
-        <div className="border-t border-white/[0.06] mt-10 pt-6 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-xs text-hq-text-muted">
-            © {new Date().getFullYear()} HackQuest. All rights reserved.
+        <div className="border-t border-white/[0.06] mt-16 pt-8 flex flex-col md:flex-row items-center justify-between gap-6">
+          <p className="text-[10px] font-bold text-white/20 uppercase tracking-[0.1em]">
+            © {new Date().getFullYear()} HackQuest Platform. Encrypted & Final.
           </p>
-          <p className="text-xs text-hq-text-muted flex items-center gap-1.5">
-            Built with
-            <Heart className="w-3 h-3 text-hq-danger fill-hq-danger" />
-            and
+          <div className="flex items-center gap-1.5 text-[10px] font-bold text-white/20 uppercase tracking-[0.1em]">
+            Optimized for
             <Zap className="w-3 h-3 text-hq-gold fill-hq-gold" />
-          </p>
+            Performance & 
+            <Heart className="w-3 h-3 text-hq-danger fill-hq-danger" />
+            Experience
+          </div>
         </div>
       </div>
     </footer>

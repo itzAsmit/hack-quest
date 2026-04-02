@@ -35,7 +35,7 @@ export default function HomePage() {
         >
           <AnimatedText
             text="Namaste Hackers !"
-            textClassName="font-[family-name:var(--font-cursive)] text-6xl md:text-8xl text-[#E050FF] drop-shadow-[0_0_20px_rgba(224,80,255,0.4)] px-8"
+            textClassName="font-[family-name:var(--font-cursive)] text-6xl md:text-8xl text-white drop-shadow-[0_0_20px_rgba(255,255,255,0.4)] px-8"
             underlineClassName="text-white/30"
             underlineDuration={2.2}
           />

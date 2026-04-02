@@ -11,43 +11,43 @@ const config: Config = {
       colors: {
         hq: {
           bg: {
-            primary: "#040814",
-            secondary: "#070D1F",
-            tertiary: "#0B1426",
-            card: "#111A2E",
-            elevated: "#1A2540",
-            bright: "#233458",
+            primary: "#02040A",
+            secondary: "#080B14",
+            tertiary: "#0E121E",
+            card: "#121726",
+            elevated: "#181E2F",
+            bright: "#21293D",
           },
           accent: {
-            purple: "#6D28D9",
-            violet: "#D946EF",
-            glow: "#22D3EE",
-            lavender: "#A5F3FC",
-            dim: "#4F46E5",
+            purple: "#6366F1", // Indigo 500
+            violet: "#8B5CF6", // Violet 500
+            glow: "#A5B4FC",   // Indigo 300
+            lavender: "#C7D2FE", // Indigo 200
+            dim: "#312E81",    // Indigo 900
           },
           gold: {
-            DEFAULT: "#F59E0B",
-            light: "#FBBF24",
-            bright: "#FFB148",
+            DEFAULT: "#F59E0B", // Amber 500
+            light: "#FBBF24",  // Amber 400
+            bright: "#FEF3C7", // Amber 50
           },
-          success: "#10B981",
-          danger: "#EF4444",
-          warning: "#F59E0B",
+          success: "#10B981", // Emerald 500
+          danger: "#F43F5E",  // Rose 500
+          warning: "#F59E0B", // Amber 500
           text: {
             primary: "#F8FAFC",
-            secondary: "#B3C1D8",
-            muted: "#7F8BA3",
+            secondary: "#94A3B8",
+            muted: "#475569",
           },
           glass: {
-            bg: "rgba(255, 255, 255, 0.05)",
-            border: "rgba(255, 255, 255, 0.10)",
+            bg: "rgba(255, 255, 255, 0.03)",
+            border: "rgba(255, 255, 255, 0.08)",
           },
           rarity: {
             common: "#94A3B8",
             rare: "#3B82F6",
-            epic: "#A855F7",
+            epic: "#8B5CF6",
             legendary: "#F59E0B",
-            mythic: "#EF4444",
+            mythic: "#F43F5E",
           },
         },
       },
@@ -60,18 +60,18 @@ const config: Config = {
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
         "gradient-purple":
-          "linear-gradient(135deg, #7C3AED 0%, #A855F7 50%, #C084FC 100%)",
+          "linear-gradient(135deg, #4F46E5 0%, #7C3AED 50%, #A78BFA 100%)",
         "gradient-gold":
-          "linear-gradient(135deg, #F59E0B 0%, #FBBF24 100%)",
+          "linear-gradient(135deg, #F59E0B 0%, #FCD34D 100%)",
         "gradient-glass":
-          "linear-gradient(135deg, rgba(124, 58, 237, 0.1) 0%, rgba(168, 85, 247, 0.05) 100%)",
+          "linear-gradient(135deg, rgba(99, 102, 241, 0.08) 0%, rgba(139, 92, 246, 0.04) 100%)",
       },
       boxShadow: {
-        "neon-purple": "0 0 20px rgba(124, 58, 237, 0.4), 0 0 60px rgba(124, 58, 237, 0.15)",
-        "neon-violet": "0 0 20px rgba(168, 85, 247, 0.4), 0 0 60px rgba(168, 85, 247, 0.15)",
-        "neon-gold": "0 0 20px rgba(245, 158, 11, 0.4), 0 0 60px rgba(245, 158, 11, 0.15)",
-        glass: "0 8px 32px rgba(0, 0, 0, 0.4)",
-        "glass-hover": "0 12px 48px rgba(0, 0, 0, 0.5), 0 0 24px rgba(124, 58, 237, 0.1)",
+        "neon-purple": "0 0 20px rgba(99, 102, 241, 0.3), 0 0 60px rgba(99, 102, 241, 0.1)",
+        "neon-violet": "0 0 20px rgba(139, 92, 246, 0.3), 0 0 60px rgba(139, 92, 246, 0.1)",
+        "neon-gold": "0 0 20px rgba(245, 158, 11, 0.3), 0 0 60px rgba(245, 158, 11, 0.1)",
+        glass: "0 8px 32px rgba(0, 0, 0, 0.6)",
+        "glass-hover": "0 12px 48px rgba(0, 0, 0, 0.8), 0 0 24px rgba(99, 102, 241, 0.05)",
       },
       animation: {
         "glow-pulse": "glow-pulse 3s ease-in-out infinite",
@@ -113,12 +113,12 @@ const config: Config = {
         },
         "border-glow": {
           "0%, 100%": {
-            borderColor: "rgba(124, 58, 237, 0.3)",
-            boxShadow: "0 0 10px rgba(124, 58, 237, 0.1)",
+            borderColor: "rgba(99, 102, 241, 0.2)",
+            boxShadow: "0 0 10px rgba(99, 102, 241, 0.1)",
           },
           "50%": {
-            borderColor: "rgba(168, 85, 247, 0.6)",
-            boxShadow: "0 0 20px rgba(168, 85, 247, 0.2)",
+            borderColor: "rgba(139, 92, 246, 0.4)",
+            boxShadow: "0 0 20px rgba(139, 92, 246, 0.2)",
           },
         },
       },
