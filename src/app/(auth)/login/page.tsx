@@ -8,9 +8,12 @@ import { createClient } from "@/lib/supabase/client";
 import { Eye, EyeOff, LogIn, ArrowLeft, Loader2 } from "lucide-react";
 import { GlassPanel } from "@/components/shared/GlassPanel";
 
+const UNIVERSAL_PLAYER_EMAIL = "player@gmail.com";
+const UNIVERSAL_PLAYER_PASSWORD = "1234";
+
 export default function LoginPage() {
-  const [identifier, setIdentifier] = useState("");
-  const [password, setPassword] = useState("");
+  const [identifier, setIdentifier] = useState(UNIVERSAL_PLAYER_EMAIL);
+  const [password, setPassword] = useState(UNIVERSAL_PLAYER_PASSWORD);
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -23,28 +26,9 @@ export default function LoginPage() {
     setLoading(true);
 
     try {
-      // Determine if identifier is email or username
-      let email = identifier;
-
-      // If not an email, look up the user by username
-      if (!identifier.includes("@")) {
-        const { data: userData } = await supabase
-          .from("users")
-          .select("email")
-          .eq("username", identifier)
-          .single();
-
-        if (!userData) {
-          setError("Username not found.");
-          setLoading(false);
-          return;
-        }
-        email = userData.email;
-      }
-
       const { error: authError } = await supabase.auth.signInWithPassword({
-        email,
-        password,
+        email: UNIVERSAL_PLAYER_EMAIL,
+        password: UNIVERSAL_PLAYER_PASSWORD,
       });
 
       if (authError) {
@@ -110,14 +94,15 @@ export default function LoginPage() {
             {/* Identifier */}
             <div>
               <label className="block text-sm font-medium text-hq-text-secondary mb-1.5">
-                Username or Email
+                Universal Player Email
               </label>
               <input
-                type="text"
+                type="email"
                 value={identifier}
                 onChange={(e) => setIdentifier(e.target.value)}
                 required
-                placeholder="Enter your username or email"
+                readOnly
+                placeholder="player@gmail.com"
                 className="w-full px-4 py-3 rounded-lg bg-hq-bg-tertiary border border-white/[0.08] text-hq-text-primary placeholder:text-hq-text-muted text-sm focus:outline-none focus:border-hq-accent-purple/50 focus:ring-1 focus:ring-hq-accent-purple/30 transition-all"
               />
             </div>
@@ -133,7 +118,8 @@ export default function LoginPage() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
-                  placeholder="Enter your password"
+                  readOnly
+                  placeholder="1234"
                   className="w-full px-4 py-3 pr-10 rounded-lg bg-hq-bg-tertiary border border-white/[0.08] text-hq-text-primary placeholder:text-hq-text-muted text-sm focus:outline-none focus:border-hq-accent-purple/50 focus:ring-1 focus:ring-hq-accent-purple/30 transition-all"
                 />
                 <button

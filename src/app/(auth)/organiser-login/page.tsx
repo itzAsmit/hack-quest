@@ -8,9 +8,12 @@ import { createClient } from "@/lib/supabase/client";
 import { Eye, EyeOff, Shield, ArrowLeft, Loader2 } from "lucide-react";
 import { GlassPanel } from "@/components/shared/GlassPanel";
 
+const UNIVERSAL_ORGANISER_EMAIL = "organiser@gmail.com";
+const UNIVERSAL_ORGANISER_PASSWORD = "12345";
+
 export default function OrganiserLoginPage() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState(UNIVERSAL_ORGANISER_EMAIL);
+  const [password, setPassword] = useState(UNIVERSAL_ORGANISER_PASSWORD);
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -24,8 +27,8 @@ export default function OrganiserLoginPage() {
 
     try {
       const { data: authData, error: authError } = await supabase.auth.signInWithPassword({
-        email,
-        password,
+        email: UNIVERSAL_ORGANISER_EMAIL,
+        password: UNIVERSAL_ORGANISER_PASSWORD,
       });
 
       if (authError) {
@@ -99,14 +102,15 @@ export default function OrganiserLoginPage() {
           <form onSubmit={handleLogin} className="space-y-5">
             <div>
               <label className="block text-sm font-medium text-hq-text-secondary mb-1.5">
-                Email
+                Universal Organiser Email
               </label>
               <input
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                placeholder="organiser@hackquest.com"
+                readOnly
+                placeholder="organiser@gmail.com"
                 className="w-full px-4 py-3 rounded-lg bg-hq-bg-tertiary border border-white/[0.08] text-hq-text-primary placeholder:text-hq-text-muted text-sm focus:outline-none focus:border-hq-gold/50 focus:ring-1 focus:ring-hq-gold/30 transition-all"
               />
             </div>
@@ -121,7 +125,8 @@ export default function OrganiserLoginPage() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
-                  placeholder="Enter your password"
+                  readOnly
+                  placeholder="12345"
                   className="w-full px-4 py-3 pr-10 rounded-lg bg-hq-bg-tertiary border border-white/[0.08] text-hq-text-primary placeholder:text-hq-text-muted text-sm focus:outline-none focus:border-hq-gold/50 focus:ring-1 focus:ring-hq-gold/30 transition-all"
                 />
                 <button
